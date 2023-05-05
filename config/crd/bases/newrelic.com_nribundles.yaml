@@ -2,23 +2,20 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  annotations:
-    controller-gen.kubebuilder.io/version: v0.11.1
-  creationTimestamp: null
-  name: newrelics.newrelic.newrelic.com
+  name: nribundles.newrelic.com
 spec:
-  group: newrelic.newrelic.com
+  group: newrelic.com
   names:
-    kind: NewRelic
-    listKind: NewRelicList
-    plural: newrelics
-    singular: newrelic
-  scope: Cluster
+    kind: NRIBundle
+    listKind: NRIBundleList
+    plural: nribundles
+    singular: nribundle
+  scope: Namespaced
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: NewRelic is the Schema for the newrelics API
+        description: NRIBundle is the Schema for the nribundles API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -33,21 +30,13 @@ spec:
           metadata:
             type: object
           spec:
-            description: NewRelicSpec defines the desired state of NewRelic
-            properties:
-              version:
-                description: Version is the version of nri-bundle that should be deployed.
-                type: string
+            description: Spec defines the desired state of NRIBundle
             type: object
+            x-kubernetes-preserve-unknown-fields: true
           status:
-            description: NewRelicStatus defines the observed state of NewRelic
-            properties:
-              version:
-                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
-                  of cluster Important: Run "make" to regenerate code after modifying
-                  this file'
-                type: string
+            description: Status defines the observed state of NRIBundle
             type: object
+            x-kubernetes-preserve-unknown-fields: true
         type: object
     served: true
     storage: true

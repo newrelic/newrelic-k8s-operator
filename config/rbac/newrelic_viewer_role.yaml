@@ -12,16 +12,16 @@ metadata:
   name: newrelic-viewer-role
 rules:
 - apiGroups:
-  - newrelic.newrelic.com
+  - newrelic.com
   resources:
-  - newrelics
+  - monitors
   verbs:
   - get
   - list
   - watch
 - apiGroups:
-  - newrelic.newrelic.com
+  - newrelic.com
   resources:
-  - newrelics/status
+  - monitors/status
   verbs:
   - get

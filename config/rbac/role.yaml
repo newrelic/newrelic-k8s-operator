@@ -6,9 +6,9 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - newrelic.newrelic.com
+  - newrelic.com
   resources:
-  - newrelics
+  - monitors
   - nribundles
   verbs:
   - create
@@ -19,16 +19,16 @@ rules:
   - update
   - watch
 - apiGroups:
-  - newrelic.newrelic.com
+  - newrelic.com
   resources:
-  - newrelics/finalizers
+  - monitors/finalizers
   - nribundles/finalizers
   verbs:
   - update
 - apiGroups:
-  - newrelic.newrelic.com
+  - newrelic.com
   resources:
-  - newrelics/status
+  - monitors/status
   - nribundles/status
   verbs:
   - get
@@ -115,23 +115,6 @@ rules:
   - delete
   - update
   - patch
-  - watch
-##
-## Rules for charts.newrelic.com/v1alpha1, Kind: NewRelic
-##
-- apiGroups:
-  - charts.newrelic.com
-  resources:
-  - newrelics
-  - newrelics/status
-  - newrelics/finalizers
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
   - watch
 - apiGroups:
   - ""

@@ -15,15 +15,15 @@ resources:
     crdVersion: v1
     namespaced: true
   domain: newrelic.com
-  group: newrelic
+  group: ""
   kind: NRIBundle
   version: v1alpha1
 - api:
     crdVersion: v1
   controller: true
   domain: newrelic.com
-  group: newrelic
-  kind: NewRelic
+  group: ""
+  kind: Monitor
   path: github.com/newrelic/newrelic-k8s-operator/api/v1alpha1
   version: v1alpha1
 version: "3"

@@ -38,12 +38,12 @@ var (
 
 	newRelicRepo  = "https://helm-charts.newrelic.com"
 	newRelicChart = "nri-bundle"
-	crdGroup      = "newrelic.newrelic.com"
+	crdGroup      = "newrelic.com"
 	crdVersion    = "v1alpha1"
 	crdKind       = "NRIBundle"
 )
 
-// NewRelicReconciler reconciles a NewRelic object
+// NewRelicReconciler reconciles a Monitor object
 type NewRelicReconciler struct {
 	client.Client
 	Scheme *k8sruntime.Scheme
@@ -54,16 +54,16 @@ type NewRelicReconciler struct {
 	helmMgrCancel context.CancelFunc
 }
 
-//+kubebuilder:rbac:groups=newrelic.newrelic.com,resources=newrelics,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=newrelic.newrelic.com,resources=newrelics/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=newrelic.newrelic.com,resources=newrelics/finalizers,verbs=update
+//+kubebuilder:rbac:groups=newrelic.com,resources=monitors,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=newrelic.com,resources=monitors/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=newrelic.com,resources=monitors/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
 // It currently checks the user's desired version of nri-bundle, and starts/restarts the proper HelmChart reconciler
 // accordingly.
 func (r *NewRelicReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	var nr newrelicv1alpha1.NewRelic
+	var nr newrelicv1alpha1.Monitor
 	if err := r.Get(ctx, req.NamespacedName, &nr); err != nil {
 		ctrlLog.Info("NewRelic CRD deleted, running deletion")
 		return r.reconcileDelete(ctx, nr)
@@ -79,7 +79,7 @@ func (r *NewRelicReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 	return result, err
 }
 
-func (r *NewRelicReconciler) reconcile(ctx context.Context, nr newrelicv1alpha1.NewRelic) (newrelicv1alpha1.NewRelic, ctrl.Result, error) {
+func (r *NewRelicReconciler) reconcile(ctx context.Context, nr newrelicv1alpha1.Monitor) (newrelicv1alpha1.Monitor, ctrl.Result, error) {
 	// Check if the NRIBundle version is mismatched.
 	if nr.Status.Version != nr.Spec.Version || r.helmMgr == nil {
 		r.stopHelmManager()
@@ -95,9 +95,9 @@ func (r *NewRelicReconciler) reconcile(ctx context.Context, nr newrelicv1alpha1.
 	return nr, ctrl.Result{Requeue: false}, nil
 }
 
-func (r *NewRelicReconciler) patchStatus(ctx context.Context, nr *newrelicv1alpha1.NewRelic) error {
+func (r *NewRelicReconciler) patchStatus(ctx context.Context, nr *newrelicv1alpha1.Monitor) error {
 	ctrlLog.Info("Patching status")
-	latest := &newrelicv1alpha1.NewRelic{}
+	latest := &newrelicv1alpha1.Monitor{}
 	if err := r.Client.Get(ctx, client.ObjectKeyFromObject(nr), latest); err != nil {
 		return err
 	}
@@ -106,14 +106,14 @@ func (r *NewRelicReconciler) patchStatus(ctx context.Context, nr *newrelicv1alph
 	return r.Client.Status().Patch(ctx, latest, patch)
 }
 
-func (r *NewRelicReconciler) reconcileDelete(ctx context.Context, nr newrelicv1alpha1.NewRelic) (ctrl.Result, error) {
+func (r *NewRelicReconciler) reconcileDelete(ctx context.Context, nr newrelicv1alpha1.Monitor) (ctrl.Result, error) {
 	// Deleting the NewRelic CRD stops the HelmManager.
 	r.stopHelmManager()
 
 	return ctrl.Result{}, nil
 }
 
-func (r *NewRelicReconciler) startHelmManager(nr newrelicv1alpha1.NewRelic) error {
+func (r *NewRelicReconciler) startHelmManager(nr newrelicv1alpha1.Monitor) error {
 	// Load HelmChart for version.
 	chart, err := LoadChart(newRelicRepo, newRelicChart, nr.Spec.Version)
 	if err != nil {
@@ -196,6 +196,6 @@ func (r *NewRelicReconciler) Stop() {
 // SetupWithManager sets up the controller with the Manager.
 func (r *NewRelicReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&newrelicv1alpha1.NewRelic{}).
+		For(&newrelicv1alpha1.Monitor{}).
 		Complete(r)
 }
