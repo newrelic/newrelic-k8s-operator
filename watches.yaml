@@ -1,0 +1,6 @@
+# Use the 'create api' subcommand to add watches to this file.
+- group: newrelic.newrelic.com
+  version: v1alpha1
+  kind: NRIBundle
+  chart: helm-charts/nri-bundle
+#+kubebuilder:scaffold:watch

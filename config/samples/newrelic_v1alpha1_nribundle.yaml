@@ -1,0 +1,1681 @@
+apiVersion: newrelic.newrelic.com/v1alpha1
+kind: NRIBundle
+metadata:
+  name: nribundle-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/nri-bundle/values.yaml
+  global:
+    affinity: {}
+    cluster: ""
+    containerSecurityContext: {}
+    customAttributes: {}
+    customSecretLicenseKey: ""
+    customSecretName: ""
+    dnsConfig: {}
+    fargate: null
+    fedramp:
+      enabled: null
+    hostNetwork: null
+    images:
+      pullSecrets: []
+      registry: ""
+    insightsKey: ""
+    labels: {}
+    licenseKey: ""
+    lowDataMode: null
+    nodeSelector: {}
+    nrStaging: null
+    podLabels: {}
+    podSecurityContext: {}
+    priorityClassName: ""
+    privileged: null
+    proxy: ""
+    serviceAccount:
+      annotations: {}
+      create: null
+      name: null
+    tolerations: []
+    verboseLog: null
+  kube-state-metrics:
+    affinity: {}
+    annotations: {}
+    autosharding:
+      enabled: false
+    collectors:
+    - certificatesigningrequests
+    - configmaps
+    - cronjobs
+    - daemonsets
+    - deployments
+    - endpoints
+    - horizontalpodautoscalers
+    - ingresses
+    - jobs
+    - leases
+    - limitranges
+    - mutatingwebhookconfigurations
+    - namespaces
+    - networkpolicies
+    - nodes
+    - persistentvolumeclaims
+    - persistentvolumes
+    - poddisruptionbudgets
+    - pods
+    - replicasets
+    - replicationcontrollers
+    - resourcequotas
+    - secrets
+    - services
+    - statefulsets
+    - storageclasses
+    - validatingwebhookconfigurations
+    - volumeattachments
+    containerSecurityContext: {}
+    customLabels: {}
+    enabled: false
+    extraArgs: []
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    hostNetwork: false
+    image:
+      pullPolicy: IfNotPresent
+      repository: registry.k8s.io/kube-state-metrics/kube-state-metrics
+      sha: ""
+      tag: v2.6.0
+    imagePullSecrets: []
+    kubeTargetVersionOverride: ""
+    kubeconfig:
+      enabled: false
+      secret: null
+    metricAllowlist: []
+    metricAnnotationsAllowList: []
+    metricDenylist: []
+    metricLabelsAllowlist: []
+    namespaceOverride: ""
+    namespaces: ""
+    namespacesDenylist: ""
+    nodeSelector: {}
+    podAnnotations: {}
+    podDisruptionBudget: {}
+    podSecurityPolicy:
+      additionalVolumes: []
+      annotations: {}
+      enabled: false
+    prometheus:
+      monitor:
+        additionalLabels: {}
+        enabled: false
+        honorLabels: false
+        interval: ""
+        jobLabel: ""
+        labelLimit: 0
+        labelNameLengthLimit: 0
+        labelValueLengthLimit: 0
+        metricRelabelings: []
+        namespace: ""
+        proxyUrl: ""
+        relabelings: []
+        sampleLimit: 0
+        scheme: ""
+        scrapeTimeout: ""
+        selectorOverride: {}
+        targetLimit: 0
+        tlsConfig: {}
+    prometheusScrape: true
+    rbac:
+      create: true
+      extraRules: []
+      useClusterRole: true
+    releaseLabel: false
+    releaseNamespace: false
+    replicas: 1
+    resources: {}
+    securityContext:
+      enabled: true
+      fsGroup: 65534
+      runAsGroup: 65534
+      runAsUser: 65534
+    selfMonitor:
+      enabled: false
+    service:
+      annotations: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      nodePort: 0
+      port: 8080
+      type: ClusterIP
+    serviceAccount:
+      annotations: {}
+      create: true
+      imagePullSecrets: []
+      name: null
+    tolerations: []
+    topologySpreadConstraints: []
+    verticalPodAutoscaler:
+      controlledResources: []
+      enabled: false
+      maxAllowed: {}
+      minAllowed: {}
+    volumeMounts: []
+    volumes: []
+  newrelic-infra-operator:
+    admissionWebhooksPatchJob:
+      image:
+        pullPolicy: IfNotPresent
+        pullSecrets: []
+        registry: null
+        repository: ingress-nginx/kube-webhook-certgen
+        tag: v1.3.0
+      volumeMounts: []
+      volumes: []
+    affinity: {}
+    certManager:
+      enabled: false
+    cluster: ""
+    common-library:
+      global:
+        affinity: {}
+        cluster: ""
+        containerSecurityContext: {}
+        customAttributes: {}
+        customSecretLicenseKey: ""
+        customSecretName: ""
+        dnsConfig: {}
+        fargate: null
+        fedramp:
+          enabled: null
+        hostNetwork: null
+        images:
+          pullSecrets: []
+          registry: ""
+        insightsKey: ""
+        labels: {}
+        licenseKey: ""
+        lowDataMode: null
+        nodeSelector: {}
+        nrStaging: null
+        podLabels: {}
+        podSecurityContext: {}
+        priorityClassName: ""
+        privileged: null
+        proxy: ""
+        serviceAccount:
+          annotations: {}
+          create: null
+          name: null
+        tolerations: []
+        verboseLog: null
+    config:
+      ignoreMutationErrors: true
+      infraAgentInjection:
+        agentConfig:
+          configSelectors:
+          - extraEnvVars:
+              DISABLE_KUBE_STATE_METRICS: "true"
+            labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: NotIn
+                values:
+                - kube-state-metrics
+              - key: app
+                operator: NotIn
+                values:
+                - kube-state-metrics
+              - key: k8s-app
+                operator: NotIn
+                values:
+                - kube-state-metrics
+            resourceRequirements:
+              limits:
+                cpu: 200m
+                memory: 100M
+              requests:
+                cpu: 100m
+                memory: 50M
+          - labelSelector:
+              matchLabels:
+                k8s-app: kube-state-metrics
+            resourceRequirements:
+              limits:
+                cpu: 300m
+                memory: 300M
+              requests:
+                cpu: 150m
+                memory: 150M
+          - labelSelector:
+              matchLabels:
+                app: kube-state-metrics
+            resourceRequirements:
+              limits:
+                cpu: 300m
+                memory: 300M
+              requests:
+                cpu: 150m
+                memory: 150M
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: kube-state-metrics
+            resourceRequirements:
+              limits:
+                cpu: 300m
+                memory: 300M
+              requests:
+                cpu: 150m
+                memory: 150M
+          image:
+            pullPolicy: IfNotPresent
+            repository: newrelic/infrastructure-k8s
+            tag: 2.13.7-unprivileged
+    containerSecurityContext: {}
+    customSecretLicenseKey: ""
+    customSecretName: ""
+    dnsConfig: {}
+    enabled: false
+    fullnameOverride: ""
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    hostNetwork: null
+    image:
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      repository: newrelic/newrelic-infra-operator
+      tag: ""
+    licenseKey: ""
+    nameOverride: ""
+    nodeSelector: {}
+    podAnnotations: {}
+    podSecurityContext:
+      fsGroup: 1001
+      runAsGroup: 1001
+      runAsUser: 1001
+    priorityClassName: ""
+    rbac:
+      pspEnabled: false
+    replicas: 1
+    resources:
+      limits:
+        memory: 80M
+      requests:
+        cpu: 100m
+        memory: 30M
+    serviceAccount:
+      annotations: null
+      create: null
+      name: ""
+    timeoutSeconds: 28
+    tolerations: []
+  newrelic-infrastructure:
+    affinity: {}
+    cluster: ""
+    common:
+      agentConfig: {}
+      config:
+        interval: 15s
+        namespaceSelector: {}
+    common-library:
+      global:
+        affinity: {}
+        cluster: ""
+        containerSecurityContext: {}
+        customAttributes: {}
+        customSecretLicenseKey: ""
+        customSecretName: ""
+        dnsConfig: {}
+        fargate: null
+        fedramp: {}
+        hostNetwork: null
+        images:
+          pullSecrets: []
+          registry: ""
+        insightsKey: ""
+        labels: {}
+        licenseKey: ""
+        lowDataMode: null
+        nodeSelector: {}
+        nrStaging: null
+        podLabels: {}
+        podSecurityContext: {}
+        priorityClassName: ""
+        privileged: null
+        proxy: ""
+        serviceAccount:
+          annotations: {}
+        tolerations: []
+        verboseLog: null
+    containerSecurityContext: {}
+    controlPlane:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: Exists
+            - matchExpressions:
+              - key: node-role.kubernetes.io/controlplane
+                operator: Exists
+            - matchExpressions:
+              - key: node-role.kubernetes.io/etcd
+                operator: Exists
+            - matchExpressions:
+              - key: node-role.kubernetes.io/master
+                operator: Exists
+      agentConfig: {}
+      annotations: {}
+      config:
+        apiServer:
+          autodiscover:
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:8443
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:6443
+            - url: http://localhost:8080
+            matchNode: true
+            namespace: kube-system
+            selector: tier=control-plane,component=kube-apiserver
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:8443
+            - url: http://localhost:8080
+            matchNode: true
+            namespace: kube-system
+            selector: k8s-app=kube-apiserver
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:8443
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:6443
+            matchNode: true
+            namespace: openshift-kube-apiserver
+            selector: app=openshift-kube-apiserver,apiserver=true
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:8443
+            matchNode: true
+            namespace: kube-system
+            selector: app=openshift-kube-apiserver,apiserver=true
+          enabled: true
+        controllerManager:
+          autodiscover:
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10257
+            matchNode: true
+            namespace: kube-system
+            selector: tier=control-plane,component=kube-controller-manager
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10257
+            matchNode: true
+            namespace: kube-system
+            selector: k8s-app=kube-controller-manager
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10257
+            matchNode: true
+            namespace: openshift-kube-controller-manager
+            selector: app=kube-controller-manager,kube-controller-manager=true
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10257
+            matchNode: true
+            namespace: kube-system
+            selector: app=kube-controller-manager,kube-controller-manager=true
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10257
+            matchNode: true
+            namespace: kube-system
+            selector: app=controller-manager,controller-manager=true
+          enabled: true
+        etcd:
+          autodiscover:
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:4001
+            - url: http://localhost:2381
+            matchNode: true
+            namespace: kube-system
+            selector: tier=control-plane,component=etcd
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:4001
+            matchNode: true
+            namespace: kube-system
+            selector: k8s-app=etcd-manager-main
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:4001
+            matchNode: true
+            namespace: kube-system
+            selector: k8s-app=etcd
+          enabled: true
+        retries: 3
+        scheduler:
+          autodiscover:
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10259
+            matchNode: true
+            namespace: kube-system
+            selector: tier=control-plane,component=kube-scheduler
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10259
+            matchNode: true
+            namespace: kube-system
+            selector: k8s-app=kube-scheduler
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10259
+            matchNode: true
+            namespace: openshift-kube-scheduler
+            selector: app=openshift-kube-scheduler,scheduler=true
+          - endpoints:
+            - auth:
+                type: bearer
+              insecureSkipVerify: true
+              url: https://localhost:10259
+            matchNode: true
+            namespace: kube-system
+            selector: app=openshift-kube-scheduler,scheduler=true
+          enabled: true
+        timeout: 10s
+      enabled: true
+      extraEnv: []
+      extraEnvFrom: []
+      extraVolumeMounts: []
+      extraVolumes: []
+      hostNetwork: true
+      initContainers: []
+      kind: DaemonSet
+      nodeSelector: {}
+      resources:
+        limits:
+          memory: 300M
+        requests:
+          cpu: 100m
+          memory: 150M
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      - effect: NoExecute
+        operator: Exists
+    customAttributes: {}
+    customSecretLicenseKey: ""
+    customSecretName: ""
+    dnsConfig: {}
+    enableProcessMetrics: null
+    enabled: true
+    fedramp: {}
+    fullnameOverride: ""
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    hostNetwork: null
+    images:
+      agent:
+        pullPolicy: IfNotPresent
+        registry: ""
+        repository: newrelic/infrastructure-bundle
+        tag: 3.1.8
+      forwarder:
+        pullPolicy: IfNotPresent
+        registry: ""
+        repository: newrelic/k8s-events-forwarder
+        tag: 1.40.1
+      integration:
+        pullPolicy: IfNotPresent
+        registry: ""
+        repository: newrelic/nri-kubernetes
+      pullSecrets: []
+    integrations: {}
+    ksm:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: kube-state-metrics
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      agentConfig: {}
+      annotations: {}
+      config:
+        retries: 3
+        scheme: http
+        selector: app.kubernetes.io/name=kube-state-metrics
+        timeout: 10s
+      enabled: true
+      extraEnv: []
+      extraEnvFrom: []
+      extraVolumeMounts: []
+      extraVolumes: []
+      initContainers: []
+      nodeSelector: {}
+      resources:
+        limits:
+          memory: 850M
+        requests:
+          cpu: 100m
+          memory: 150M
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      - effect: NoExecute
+        operator: Exists
+    kubelet:
+      affinity: {}
+      agentConfig: {}
+      annotations: {}
+      config:
+        retries: 3
+        scraperMaxReruns: 4
+        timeout: 10s
+      enabled: true
+      extraEnv: []
+      extraEnvFrom: []
+      extraVolumeMounts: []
+      extraVolumes: []
+      initContainers: []
+      nodeSelector: {}
+      resources:
+        limits:
+          memory: 300M
+        requests:
+          cpu: 100m
+          memory: 150M
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      - effect: NoExecute
+        operator: Exists
+    labels: {}
+    licenseKey: ""
+    lowDataMode: null
+    nameOverride: ""
+    nodeSelector: {}
+    nrStaging: null
+    podAnnotations: {}
+    podLabels: {}
+    podSecurityContext: {}
+    priorityClassName: ""
+    privileged: true
+    proxy: ""
+    rbac:
+      create: true
+      pspEnabled: false
+    selfMonitoring:
+      pixie:
+        enabled: false
+    serviceAccount:
+      annotations: {}
+      name: ""
+    sink:
+      http:
+        probeBackoff: 5s
+        probeTimeout: 90s
+    strategy:
+      type: Recreate
+    tolerations: []
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 1
+      type: RollingUpdate
+    verboseLog: null
+  newrelic-k8s-metrics-adapter:
+    affinity: {}
+    apiServicePatchJob:
+      image:
+        pullPolicy: IfNotPresent
+        registry: null
+        repository: ingress-nginx/kube-webhook-certgen
+        tag: v1.3.0
+      volumeMounts: []
+      volumes: []
+    certManager:
+      enabled: false
+    common-library:
+      global:
+        affinity: {}
+        cluster: ""
+        containerSecurityContext: {}
+        customAttributes: {}
+        customSecretLicenseKey: ""
+        customSecretName: ""
+        dnsConfig: {}
+        fargate: null
+        fedramp:
+          enabled: null
+        hostNetwork: null
+        images:
+          pullSecrets: []
+          registry: ""
+        insightsKey: ""
+        labels: {}
+        licenseKey: ""
+        lowDataMode: null
+        nodeSelector: {}
+        nrStaging: null
+        podLabels: {}
+        podSecurityContext: {}
+        priorityClassName: ""
+        privileged: null
+        proxy: ""
+        serviceAccount:
+          annotations: {}
+          create: null
+          name: null
+        tolerations: []
+        verboseLog: null
+    config:
+      accountID: null
+      cacheTTLSeconds: 30
+      externalMetrics: null
+      region: null
+    containerSecurityContext: null
+    enabled: false
+    extraEnv: []
+    extraEnvFrom: []
+    extraVolumeMounts: []
+    extraVolumes: []
+    fullnameOverride: ""
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    image:
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      registry: null
+      repository: newrelic/newrelic-k8s-metrics-adapter
+      tag: ""
+    nodeSelector: {}
+    personalAPIKey: null
+    podAnnotations: null
+    podSecurityContext: null
+    proxy: null
+    rbac:
+      pspEnabled: false
+    replicas: 1
+    resources:
+      limits:
+        memory: 80M
+      requests:
+        cpu: 100m
+        memory: 30M
+    serviceAccount:
+      create: null
+      name: null
+    tolerations: []
+    verboseLog: false
+  newrelic-logging:
+    common-library:
+      global:
+        affinity: {}
+        cluster: ""
+        containerSecurityContext: {}
+        customAttributes: {}
+        customSecretLicenseKey: ""
+        customSecretName: ""
+        dnsConfig: {}
+        fargate: null
+        fedramp:
+          enabled: null
+        hostNetwork: null
+        images:
+          pullSecrets: []
+          registry: ""
+        insightsKey: ""
+        labels: {}
+        licenseKey: ""
+        lowDataMode: null
+        nodeSelector: {}
+        nrStaging: null
+        podLabels: {}
+        podSecurityContext: {}
+        priorityClassName: ""
+        privileged: null
+        proxy: ""
+        serviceAccount:
+          annotations: {}
+          create: null
+          name: null
+        tolerations: []
+        verboseLog: null
+    daemonSet:
+      annotations: {}
+    enableLinux: true
+    enableWindows: false
+    enabled: false
+    exposedPorts: []
+    extraVolumeMounts: []
+    extraVolumes: []
+    fluentBit:
+      config:
+        filters: |
+          [FILTER]
+              Name                kubernetes
+              Match               kube.*
+              # We need the full DNS suffix as Windows only supports resolving names with this suffix
+              # See: https://kubernetes.io/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#dns-limitations
+              Kube_URL            https://kubernetes.default.svc.cluster.local:443
+              Buffer_Size         ${K8S_BUFFER_SIZE}
+              K8S-Logging.Exclude ${K8S_LOGGING_EXCLUDE}
+  
+          [FILTER]
+              Name           record_modifier
+              Match          *
+              Record         cluster_name ${CLUSTER_NAME}
+        inputs: |
+          [INPUT]
+              Name              tail
+              Tag               kube.*
+              Path              ${PATH}
+              Parser            ${LOG_PARSER}
+              DB                ${FB_DB}
+              Mem_Buf_Limit     7MB
+              Skip_Long_Lines   On
+              Refresh_Interval  10
+        lowDataModeFilters: |
+          [FILTER]
+              Name           kubernetes
+              Match          kube.*
+              # We need the full DNS suffix as Windows only supports resolving names with this suffix
+              # See: https://kubernetes.io/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#dns-limitations
+              Kube_URL       https://kubernetes.default.svc.cluster.local:443
+              Buffer_Size    ${K8S_BUFFER_SIZE}
+              K8S-Logging.Exclude ${K8S_LOGGING_EXCLUDE}
+              Labels         Off
+              Annotations    Off
+  
+          [FILTER]
+              Name           nest
+              Match          *
+              Operation      lift
+              Nested_under   kubernetes
+  
+          [FILTER]
+              Name           record_modifier
+              Match          *
+              Record         cluster_name ${CLUSTER_NAME}
+              Allowlist_key  container_name
+              Allowlist_key  namespace_name
+              Allowlist_key  pod_name
+              Allowlist_key  stream
+              Allowlist_key  message
+              Allowlist_key  log
+        outputs: |
+          [OUTPUT]
+              Name           newrelic
+              Match          *
+              licenseKey     ${LICENSE_KEY}
+              endpoint       ${ENDPOINT}
+              lowDataMode    ${LOW_DATA_MODE}
+              Retry_Limit    ${RETRY_LIMIT}
+        parsers: |
+          [PARSER]
+              Name         docker
+              Format       json
+              Time_Key     time
+              Time_Format  %Y-%m-%dT%H:%M:%S.%L
+              Time_Keep    On
+  
+          [PARSER]
+              Name cri
+              Format regex
+              Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
+              Time_Key    time
+              Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+        service: |
+          [SERVICE]
+              Flush         1
+              Log_Level     ${LOG_LEVEL}
+              Daemon        off
+              Parsers_File  parsers.conf
+              HTTP_Server   On
+              HTTP_Listen   0.0.0.0
+              HTTP_Port     2020
+      criEnabled: false
+      db: /var/log/flb_kube.db
+      extraEnv: []
+      k8sBufferSize: 32k
+      k8sLoggingExclude: "Off"
+      logLevel: info
+      path: /var/log/containers/*.log
+      retryLimit: 5
+      windowsDb: C:\var\log\flb_kube.db
+      windowsPath: C:\var\log\containers\*.log
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    image:
+      pullPolicy: IfNotPresent
+      repository: newrelic/newrelic-fluentbit-output
+      tag: ""
+    nodeAffinity: {}
+    nodeSelector: {}
+    nrStaging: false
+    podAnnotations: {}
+    rbac:
+      create: true
+      pspEnabled: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 250m
+        memory: 64Mi
+    serviceAccount:
+      annotations: {}
+      create: null
+      name: null
+    tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    updateStrategy: RollingUpdate
+    windowsNodeSelector: {}
+    windowsOsList:
+    - buildNumber: 10.0.17763
+      imageTagSuffix: windows-ltsc-2019
+      version: ltsc2019
+    - buildNumber: 10.0.20348
+      imageTagSuffix: windows-ltsc-2022
+      version: ltsc2022
+  newrelic-pixie:
+    affinity: {}
+    customScripts: {}
+    enabled: false
+    excludeNamespacesRegex: null
+    excludePodsRegex: null
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    image:
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      repository: newrelic/newrelic-pixie-integration
+      tag: ""
+    lowDataMode: null
+    nodeSelector: {}
+    proxy: {}
+    resources:
+      limits:
+        memory: 250M
+      requests:
+        cpu: 100m
+        memory: 250M
+    tolerations: []
+  newrelic-prometheus-agent:
+    affinity: {}
+    cluster: ""
+    common-library:
+      global:
+        affinity: {}
+        cluster: ""
+        containerSecurityContext: {}
+        customAttributes: {}
+        customSecretLicenseKey: ""
+        customSecretName: ""
+        dnsConfig: {}
+        fargate: null
+        fedramp:
+          enabled: null
+        hostNetwork: null
+        images:
+          pullSecrets: []
+          registry: ""
+        insightsKey: ""
+        labels: {}
+        licenseKey: ""
+        lowDataMode: null
+        nodeSelector: {}
+        nrStaging: null
+        podLabels: {}
+        podSecurityContext: {}
+        priorityClassName: ""
+        privileged: null
+        proxy: ""
+        serviceAccount:
+          annotations: {}
+          create: null
+          name: null
+        tolerations: []
+        verboseLog: null
+    config:
+      common:
+        scrape_interval: 30s
+      extra_remote_write: null
+      extra_scrape_configs: []
+      kubernetes:
+        integrations_filter:
+          app_values:
+          - redis
+          - traefik
+          - calico
+          - nginx
+          - coredns
+          - kube-dns
+          - etcd
+          - cockroachdb
+          - velero
+          - harbor
+          - argocd
+          enabled: true
+          source_labels:
+          - app.kubernetes.io/name
+          - app.newrelic.io/name
+          - k8s-app
+        jobs:
+        - job_name_prefix: default
+          target_discovery:
+            endpoints: true
+            filter:
+              annotations:
+                prometheus.io/scrape: true
+            pod: true
+        - integrations_filter:
+            enabled: false
+          job_name_prefix: newrelic
+          target_discovery:
+            endpoints: true
+            filter:
+              annotations:
+                newrelic.io/scrape: true
+            pod: true
+      newrelic_remote_write: null
+      static_targets:
+        jobs:
+        - extra_metric_relabel_config:
+          - action: keep
+            regex: prometheus_agent_active_series|prometheus_target_interval_length_seconds|prometheus_target_scrape_pool_targets|prometheus_remote_storage_samples_pending|prometheus_remote_storage_samples_in_total|prometheus_remote_storage_samples_retried_total|prometheus_agent_corruptions_total|prometheus_remote_storage_shards|prometheus_sd_kubernetes_events_total|prometheus_agent_checkpoint_creations_failed_total|prometheus_agent_checkpoint_deletions_failed_total|prometheus_remote_storage_samples_dropped_total|prometheus_remote_storage_samples_failed_total|prometheus_sd_kubernetes_http_request_total|prometheus_agent_truncate_duration_seconds_sum|prometheus_build_info|process_resident_memory_bytes|process_virtual_memory_bytes|process_cpu_seconds_total
+            source_labels:
+            - __name__
+          job_name: self-metrics
+          skip_sharding: true
+          targets:
+          - localhost:9090
+    containerSecurityContext: {}
+    customAttributes: {}
+    customSecretLicenseKey: ""
+    customSecretName: ""
+    dnsConfig: {}
+    enabled: false
+    extraVolumeMounts: []
+    extraVolumes: []
+    fullnameOverride: ""
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    hostNetwork: null
+    images:
+      configurator:
+        pullPolicy: IfNotPresent
+        registry: ""
+        repository: newrelic/newrelic-prometheus-configurator
+        tag: ""
+      prometheus:
+        pullPolicy: IfNotPresent
+        registry: ""
+        repository: quay.io/prometheus/prometheus
+        tag: ""
+      pullSecrets: []
+    labels: {}
+    licenseKey: ""
+    lowDataMode: null
+    metric_type_override:
+      enabled: true
+    nameOverride: ""
+    nodeSelector: {}
+    nrStaging: null
+    podAnnotations: {}
+    podLabels: {}
+    podSecurityContext: {}
+    priorityClassName: ""
+    rbac:
+      create: true
+      pspEnabled: false
+    resources:
+      prometheus: {}
+    serviceAccount:
+      annotations: {}
+      create: true
+      name: ""
+    sharding: null
+    tolerations: []
+    verboseLog: null
+  nri-kube-events:
+    affinity: {}
+    agentHTTPTimeout: 30s
+    cluster: ""
+    common-library:
+      global:
+        affinity: {}
+        cluster: ""
+        containerSecurityContext: {}
+        customAttributes: {}
+        customSecretLicenseKey: ""
+        customSecretName: ""
+        dnsConfig: {}
+        fargate: null
+        fedramp:
+          enabled: null
+        hostNetwork: null
+        images:
+          pullSecrets: []
+          registry: ""
+        insightsKey: ""
+        labels: {}
+        licenseKey: ""
+        lowDataMode: null
+        nodeSelector: {}
+        nrStaging: null
+        podLabels: {}
+        podSecurityContext: {}
+        priorityClassName: ""
+        privileged: null
+        proxy: ""
+        serviceAccount:
+          annotations: {}
+          create: null
+          name: null
+        tolerations: []
+        verboseLog: null
+    containerSecurityContext: {}
+    customAttributes: {}
+    customSecretLicenseKey: ""
+    customSecretName: ""
+    deployment:
+      annotations: {}
+    dnsConfig: {}
+    enabled: false
+    fedramp:
+      enabled: null
+    forwarder:
+      resources: {}
+    fullnameOverride: ""
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    hostNetwork: null
+    images:
+      agent:
+        pullPolicy: IfNotPresent
+        registry: null
+        repository: newrelic/k8s-events-forwarder
+        tag: 1.40.0
+      integration:
+        pullPolicy: IfNotPresent
+        registry: null
+        repository: newrelic/nri-kube-events
+        tag: null
+      pullSecrets: []
+    labels: {}
+    licenseKey: ""
+    nameOverride: ""
+    nodeSelector: {}
+    nrStaging: null
+    podAnnotations: {}
+    podLabels: {}
+    podSecurityContext: {}
+    priorityClassName: ""
+    proxy: ""
+    rbac:
+      create: true
+    resources: {}
+    serviceAccount:
+      annotations: null
+      create: null
+      name: ""
+    sinks:
+      newRelicInfra: true
+      stdout: false
+    tolerations: []
+    verboseLog: null
+  nri-metadata-injection:
+    affinity: {}
+    certManager:
+      enabled: false
+    cluster: ""
+    common-library:
+      global:
+        affinity: {}
+        cluster: ""
+        containerSecurityContext: {}
+        customAttributes: {}
+        customSecretLicenseKey: ""
+        customSecretName: ""
+        dnsConfig: {}
+        fargate: null
+        fedramp: {}
+        hostNetwork: null
+        images:
+          pullSecrets: []
+          registry: ""
+        insightsKey: ""
+        labels: {}
+        licenseKey: ""
+        lowDataMode: null
+        nodeSelector: {}
+        nrStaging: null
+        podLabels: {}
+        podSecurityContext: {}
+        priorityClassName: ""
+        privileged: null
+        proxy: ""
+        serviceAccount:
+          annotations: {}
+        tolerations: []
+        verboseLog: null
+    containerSecurityContext: {}
+    customTLSCertificate: false
+    dnsConfig: {}
+    enabled: true
+    fullnameOverride: ""
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    hostNetwork: null
+    image:
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      repository: newrelic/k8s-metadata-injection
+      tag: ""
+    injectOnlyLabeledNamespaces: false
+    jobImage:
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      repository: ingress-nginx/kube-webhook-certgen
+      tag: v1.3.0
+      volumeMounts: []
+      volumes: []
+    labels: {}
+    nameOverride: ""
+    nodeSelector: {}
+    podAnnotations: {}
+    podLabels: {}
+    podSecurityContext: {}
+    priorityClassName: ""
+    rbac:
+      pspEnabled: false
+    replicas: 1
+    resources:
+      limits:
+        memory: 80M
+      requests:
+        cpu: 100m
+        memory: 30M
+    timeoutSeconds: 28
+    tolerations: []
+  nri-prometheus:
+    affinity: {}
+    cluster: ""
+    common-library:
+      global:
+        affinity: {}
+        cluster: ""
+        containerSecurityContext: {}
+        customAttributes: {}
+        customSecretLicenseKey: ""
+        customSecretName: ""
+        dnsConfig: {}
+        fargate: null
+        fedramp:
+          enabled: null
+        hostNetwork: null
+        images:
+          pullSecrets: []
+          registry: ""
+        insightsKey: ""
+        labels: {}
+        licenseKey: ""
+        lowDataMode: null
+        nodeSelector: {}
+        nrStaging: null
+        podLabels: {}
+        podSecurityContext: {}
+        priorityClassName: ""
+        privileged: null
+        proxy: ""
+        serviceAccount:
+          annotations: {}
+          create: null
+          name: null
+        tolerations: []
+        verboseLog: null
+    config:
+      audit: false
+      insecure_skip_verify: false
+      require_scrape_enabled_label_for_nodes: true
+      scrape_enabled_label: prometheus.io/scrape
+      scrape_endpoints: false
+      scrape_services: true
+      transformations: []
+    containerSecurityContext: {}
+    customSecretLicenseKey: ""
+    customSecretName: ""
+    dnsConfig: {}
+    enabled: false
+    fedramp:
+      enabled: null
+    fullnameOverride: ""
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    hostNetwork: null
+    image:
+      imagePullPolicy: IfNotPresent
+      pullSecrets: []
+      registry: null
+      repository: newrelic/nri-prometheus
+      tag: ""
+    labels: {}
+    licenseKey: ""
+    lowDataMode: null
+    nameOverride: ""
+    nodeSelector: {}
+    nrStaging: null
+    podAnnotations: {}
+    podLabels: {}
+    podSecurityContext: {}
+    priorityClassName: ""
+    proxy: ""
+    rbac:
+      create: true
+    resources: {}
+    serviceAccount:
+      annotations: {}
+      create: true
+      name: null
+    tolerations: []
+    verboseLog: null
+  pixie-chart:
+    cloudAddr: withpixie.ai:443
+    clusterName: ""
+    customDeployKeySecret: ""
+    dataAccess: Full
+    deployKey: ""
+    deployOLM: ""
+    devCloudNamespace: ""
+    disableAutoUpdate: false
+    enabled: false
+    global:
+      affinity: {}
+      cluster: ""
+      containerSecurityContext: {}
+      customAttributes: {}
+      customSecretLicenseKey: ""
+      customSecretName: ""
+      dnsConfig: {}
+      fargate: null
+      fedramp:
+        enabled: null
+      hostNetwork: null
+      images:
+        pullSecrets: []
+        registry: ""
+      insightsKey: ""
+      labels: {}
+      licenseKey: ""
+      lowDataMode: null
+      nodeSelector: {}
+      nrStaging: null
+      podLabels: {}
+      podSecurityContext: {}
+      priorityClassName: ""
+      privileged: null
+      proxy: ""
+      serviceAccount:
+        annotations: {}
+        create: null
+        name: null
+      tolerations: []
+      verboseLog: null
+    name: pixie
+    olmBundleChannel: stable
+    olmNamespace: olm
+    olmOperatorNamespace: px-operator
+    patches: {}
+    pemMemoryLimit: ""
+    pemMemoryRequest: ""
+    pod:
+      annotations: {}
+      labels: {}
+      nodeSelector: {}
+      resources: {}
+    useEtcdOperator: false
+    version: ""
+  
+  

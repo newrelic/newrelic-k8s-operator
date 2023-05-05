@@ -1,0 +1,5 @@
+## Append samples of your project ##
+resources:
+- newrelic_v1alpha1_nribundle.yaml
+- newrelic_v1alpha1_newrelic.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples

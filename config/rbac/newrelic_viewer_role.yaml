@@ -1,0 +1,27 @@
+# permissions for end users to view newrelics.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: newrelic-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: newrelic-k8s-operator
+    app.kubernetes.io/part-of: newrelic-k8s-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: newrelic-viewer-role
+rules:
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - newrelics
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - newrelics/status
+  verbs:
+  - get
