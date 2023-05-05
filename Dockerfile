@@ -27,7 +27,6 @@ RUN echo "${USER_NAME}:x:${USER_UID}:0:${USER_NAME} user:${HOME}:/sbin/nologin" 
 
 # Copy necessary files with the right permissions
 COPY --chown=${USER_UID}:0 watches.yaml ${HOME}/watches.yaml
-COPY --chown=${USER_UID}:0 helm-charts  ${HOME}/helm-charts
 
 # Copy manager binary
 COPY --from=builder /workspace/manager .

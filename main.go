@@ -23,9 +23,6 @@ import (
 	"time"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
-	"github.com/operator-framework/helm-operator-plugins/pkg/annotation"
-	"github.com/operator-framework/helm-operator-plugins/pkg/reconciler"
-	"github.com/operator-framework/helm-operator-plugins/pkg/watches"
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 
 	ctrlruntime "k8s.io/apimachinery/pkg/runtime"
@@ -35,8 +32,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	newrelicv1alpha1 "github.com/newrelic/newrelic-k8s-operator/api/v1alpha1"
-	"github.com/newrelic/newrelic-k8s-operator/controllers"
+	newrelicv1alpha1 "github.com/newrelic/newrelic-operator/api/v1alpha1"
+	"github.com/newrelic/newrelic-operator/controllers"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -66,7 +63,7 @@ func main() {
 	flag.StringVar(&metricsAddr, "metrics-bind-address", ":8080", "The address the metric endpoint binds to.")
 	flag.StringVar(&probeAddr, "health-probe-bind-address", ":8081", "The address the probe endpoint binds to.")
 	flag.StringVar(&watchesPath, "watches-file", "watches.yaml", "path to watches file")
-	flag.StringVar(&leaderElectionID, "leader-election-id", "d7b49e77.newrelic.com", "provide leader election")
+	flag.StringVar(&leaderElectionID, "leader-election-id", "e8dce5b8.newrelic.com", "provide leader election")
 	flag.BoolVar(&enableLeaderElection, "leader-elect", false,
 		"Enable leader election for controller manager. "+
 			"Enabling this will ensure there is only one active controller manager.")
@@ -91,10 +88,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.NewRelicReconciler{
+	reconciler := &controllers.NewRelicReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
-	}).SetupWithManager(mgr); err != nil {
+	}
+	if err = reconciler.SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "NewRelic")
 		os.Exit(1)
 	}
@@ -109,45 +107,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	ws, err := watches.Load(watchesPath)
-	if err != nil {
-		setupLog.Error(err, "Failed to create new manager factories")
-		os.Exit(1)
-	}
-
-	for _, w := range ws {
-		// Register controller with the factory
-		reconcilePeriod := defaultReconcilePeriod
-		if w.ReconcilePeriod != nil {
-			reconcilePeriod = w.ReconcilePeriod.Duration
-		}
-
-		maxConcurrentReconciles := defaultMaxConcurrentReconciles
-		if w.MaxConcurrentReconciles != nil {
-			maxConcurrentReconciles = *w.MaxConcurrentReconciles
-		}
-
-		r, err := reconciler.New(
-			reconciler.WithChart(*w.Chart),
-			reconciler.WithGroupVersionKind(w.GroupVersionKind),
-			reconciler.WithOverrideValues(w.OverrideValues),
-			reconciler.SkipDependentWatches(w.WatchDependentResources != nil && !*w.WatchDependentResources),
-			reconciler.WithMaxConcurrentReconciles(maxConcurrentReconciles),
-			reconciler.WithReconcilePeriod(reconcilePeriod),
-			reconciler.WithInstallAnnotations(annotation.DefaultInstallAnnotations...),
-			reconciler.WithUpgradeAnnotations(annotation.DefaultUpgradeAnnotations...),
-			reconciler.WithUninstallAnnotations(annotation.DefaultUninstallAnnotations...),
-		)
-		if err != nil {
-			setupLog.Error(err, "unable to create helm reconciler", "controller", "Helm")
-			os.Exit(1)
-		}
-		if err := r.SetupWithManager(mgr); err != nil {
-			setupLog.Error(err, "unable to create controller", "controller", "Helm")
-			os.Exit(1)
-		}
-		setupLog.Info("configured watch", "gvk", w.GroupVersionKind, "chartPath", w.ChartPath, "maxConcurrentReconciles", maxConcurrentReconciles, "reconcilePeriod", reconcilePeriod)
-	}
+	defer reconciler.Stop()
 
 	setupLog.Info("starting manager")
 	if err := mgr.Start(ctrl.SetupSignalHandler()); err != nil {
