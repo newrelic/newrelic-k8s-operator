@@ -1,27 +1,89 @@
 <a href="https://opensource.newrelic.com/oss-category/#community-project"><picture><source media="(prefers-color-scheme: dark)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/dark/Community_Project.png"><source media="(prefers-color-scheme: light)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Community_Project.png"><img alt="New Relic Open Source community project banner." src="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Community_Project.png"></picture></a>
 
-# [Name of Project] [build badges go here when available]
+# New Relic K8s Operator
 
->[Brief description - what is the project and value does it provide? How often should users expect to get releases? How is versioning set up? Where does this project want to go?]
+This repository contains the source code for New Relic's K8s operator. The K8s operator helps users deploy and manage their deployment of [New Relic's K8s solution](https://github.com/newrelic/helm-charts/tree/master/charts/nri-bundle).
+
+The K8s operator is built using Operator Framework's (Hybrid Helm Operator)[https://github.com/operator-framework/helm-operator-plugins].
+
+## Table of contents
+
+- [Table of contents](#table-of-contents)
+- [Installation](#installation)
+- [Helm chart](#helm-chart)
+- [Development flow](#development-flow)
+  - [Running locally](#running-locally)
+- [Support](#support)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
-> [Include a step-by-step procedure on how to get your code installed. Be sure to include any third-party dependencies that need to be installed separately]
+For installation instructions, refer to our (docs)[].
 
-## Getting Started
->[Simple steps to start working with the software similar to a "Hello World"]
+## Helm chart
 
-## Usage
->[**Optional** - Include more thorough instructions on how to use the software. This section might not be needed if the Getting Started section is enough. Remove this section if it's not needed.]
+You can install this chart using directly from this repository or by adding the Helm repository:
 
+```shell
+helm repo add newrelic https://helm-charts.newrelic.com && helm repo update
+helm upgrade --install newrelic/newrelic-k8s-operator -f your-custom-values.yaml
+```
 
-## Building
+For further information of the configuration needed for the chart just read the [chart's README](/charts/newrelic-k8s-operator/README.md).
 
->[**Optional** - Include this section if users will need to follow specific instructions to build the software from source. Be sure to include any third party build dependencies that need to be installed separately. Remove this section if it's not needed.]
+## Development flow
 
-## Testing
+This project uses a Makefile for the most common use cases.
 
->[**Optional** - Include instructions on how to run tests if we include tests with the codebase. Remove this section if it's not needed.]
+When updating the NewRelic CRD, you should add or modify fields and types to `api/v1alpha1/newrelic_types.go`. After editing the file, make sure to run the following to update the CRD YAML and generated API files:
+
+```shell
+make manifests
+make generate
+```
+
+To update the Helm charts templates, run:
+
+```shell
+make helm IMG=<registry>/newrelic-operator:<version>
+```
+
+### Running locally
+
+The easiest way to get started is using the commands in the Makefile
+and [Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/).
+
+Follow these steps to run this project:
+
+ - Ensure Minikube is running
+```sh
+$ minikube status
+host: Running
+kubelet: Running
+apiserver: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 192.168.x.x
+```
+
+```shell
+docker build -t <registry>/newrelic-operator:0.0.1 .
+docker push <registry>/newrelic-operator:0.0.1
+make deploy <registry>/newrelic-operator:0.0.1
+```
+
+This will deploy the necessary service accounts, RBAC policies, and deployment necessary for the operator to run. The operator will be running in the `newrelic-operator-system` namespace.
+You can then deploy the sample CRDs. Before doing so, make sure to update the licenseKey with your own in `config/samples/minimal_nribundle.yaml`:
+
+```shell
+kubectl apply -f config/samples/newrelic_v1alpha1_newrelic.yaml
+kubectl apply -f config/samples/minimal_nribundle.yaml
+```
+
+To clean up:
+
+```shell
+make undeploy
+```
 
 ## Support
 
@@ -31,7 +93,7 @@ New Relic hosts and moderates an online forum where you can interact with New Re
 
 ## Contribute
 
-We encourage your contributions to improve [project name]! Keep in mind that when you submit your pull request, you'll need to sign the CLA via the click-through using CLA-Assistant. You only have to sign the CLA one time per project.
+We encourage your contributions to improve newrelic-k8s-operator! Keep in mind that when you submit your pull request, you'll need to sign the CLA via the click-through using CLA-Assistant. You only have to sign the CLA one time per project.
 
 If you have any questions, or to execute our corporate CLA (which is required if your contribution is on behalf of a company), drop us an email at opensource@newrelic.com.
 
@@ -43,8 +105,8 @@ If you believe you have found a security vulnerability in this project or any of
 
 If you would like to contribute to this project, review [these guidelines](./CONTRIBUTING.md).
 
-To all contributors, we thank you!  Without your contribution, this project would not be what it is today.  We also host a community project page dedicated to [Project Name](<LINK TO https://opensource.newrelic.com/projects/... PAGE>).
+To all contributors, we thank you!  Without your contribution, this project would not be what it is today.
 
 ## License
-[Project Name] is licensed under the [Apache 2.0](http://apache.org/licenses/LICENSE-2.0.txt) License.
->[If applicable: The [project name] also uses source code from third-party libraries. You can find full details on which libraries are used and the terms under which they are licensed in the third-party notices document.]
+newrelic-k8s-operator is licensed under the [Apache 2.0](http://apache.org/licenses/LICENSE-2.0.txt) License.
+newrelic-k8s-operator also eses source code from third-party libraries. You can find full details on which libraries are used and the terms under which they are licensed in the third-party notices document.
