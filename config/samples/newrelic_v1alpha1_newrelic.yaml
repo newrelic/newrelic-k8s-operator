@@ -1,12 +1,5 @@
 apiVersion: newrelic.newrelic.com/v1alpha1
 kind: NewRelic
 metadata:
-  labels:
-    app.kubernetes.io/name: newrelic
-    app.kubernetes.io/instance: newrelic-sample
-    app.kubernetes.io/part-of: newrelic-k8s-operator
-    app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/created-by: newrelic-k8s-operator
   name: newrelic-sample
 spec:
-  # TODO(user): Add fields here

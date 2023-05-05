@@ -1,8 +1,39 @@
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  creationTimestamp: null
   name: manager-role
 rules:
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - newrelics
+  - nribundles
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - newrelics/finalizers
+  - nribundles/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - newrelics/status
+  - nribundles/status
+  verbs:
+  - get
+  - patch
+  - update
 ##
 ## Base operator rules
 ##
@@ -13,6 +44,9 @@ rules:
   - namespaces
   verbs:
   - get
+  - create
+  - list
+  - watch
 # We need to manage Helm release secrets
 - apiGroups:
   - ""
@@ -27,16 +61,70 @@ rules:
   - events
   verbs:
   - create
-
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  verbs:
+  - get
+  - create
+  - list
+  - update
+  - patch
+  - delete
+  - watch
+- apiGroups:
+  - px.dev
+  resources:
+  - viziers
+  verbs:
+  - create
+  - get
+  - list
+  - delete
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - create
+  - list
+- apiGroups:
+  - operators.coreos.com
+  resources:
+  - operatorgroups
+  - catalogsources
+  - subscriptions
+  - installplans
+  verbs:
+  - get
+  - list
+  - create
+  - watch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterroles
+  - clusterrolebindings
+  - roles
+  - rolebindings
+  verbs:
+  - get
+  - create
+  - list
+  - delete
+  - update
+  - patch
+  - watch
 ##
-## Rules for newrelic.newrelic.com/v1alpha1, Kind: NRIBundle
+## Rules for charts.newrelic.com/v1alpha1, Kind: NewRelic
 ##
 - apiGroups:
-  - newrelic.newrelic.com
+  - charts.newrelic.com
   resources:
-  - nribundles
-  - nribundles/status
-  - nribundles/finalizers
+  - newrelics
+  - newrelics/status
+  - newrelics/finalizers
   verbs:
   - create
   - delete
@@ -56,6 +144,7 @@ rules:
   - events
   - configmaps
   - secrets
+  - serviceaccounts
   verbs:
   - create
   - delete
@@ -79,5 +168,61 @@ rules:
   - patch
   - update
   - watch
-
-#+kubebuilder:scaffold:rules
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  - apps
+  - rbac.authorization.k8s.io
+  - extensions
+  - etcd.database.coreos.com
+  - batch
+  - nats.io
+  - policy
+  - apiextensions.k8s.io
+  - px.dev
+  resources:
+  - clusterroles
+  - clusterrolebindings
+  - configmaps
+  - customresourcedefinitions
+  - secrets
+  - pods
+  - events
+  - services
+  - deployments
+  - daemonsets
+  - nodes
+  - persistentvolumes
+  - persistentvolumeclaims
+  - roles
+  - rolebindings
+  - serviceaccounts
+  - etcdclusters
+  - statefulsets
+  - cronjobs
+  - jobs
+  - natsclusters
+  - poddisruptionbudgets
+  - viziers
+  - viziers/status
+  - podsecuritypolicies
+  verbs: ["*"]
+# Allow read-only access to storage class.
+- apiGroups:
+  - storage.k8s.io
+  - ""
+  resources:
+  - storageclasses
+  - namespaces
+  verbs: ["get", "list"]

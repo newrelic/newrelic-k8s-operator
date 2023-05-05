@@ -1,0 +1,31 @@
+apiVersion: newrelic.newrelic.com/v1alpha1
+kind: NRIBundle
+metadata:
+  name: nribundle-minimal
+spec:
+  global:
+    cluster: "cluster"
+    licenseKey: ""
+    lowDataMode: true
+  kubeEvents:
+    enabled: true
+  logging:
+    enabled: true
+    lowDataMode: true
+  newrelic-infrastructure:
+    enabled: true
+    privileged: true
+  newrelic-pixie:
+    apiKey: "" 
+    enabled: false
+  newrelic-prometheus-agent:
+    config:
+      kubernetes:
+        integrations_filter:
+          enabled: false
+    enabled: true
+    lowDataMode: true
+  pixie-chart:
+    clusterName: "cluster"
+    deployKey: ""
+    enabled: false
