@@ -1,4 +1,4 @@
-module github.com/newrelic/newrelic-operator
+module github.com/newrelic/newrelic-k8s-operator
 
 go 1.19
 

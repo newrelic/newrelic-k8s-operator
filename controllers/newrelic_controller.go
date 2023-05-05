@@ -26,7 +26,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	newrelicv1alpha1 "github.com/newrelic/newrelic-operator/api/v1alpha1"
+	newrelicv1alpha1 "github.com/newrelic/newrelic-k8s-operator/api/v1alpha1"
 	"github.com/operator-framework/helm-operator-plugins/pkg/annotation"
 	"github.com/operator-framework/helm-operator-plugins/pkg/reconciler"
 )
