@@ -1,0 +1,7 @@
+apiVersion: newrelic.newrelic.com/v1alpha1
+kind: NRIBundle
+metadata:
+  name: nribundle
+  namespace: {{.Release.Namespace}}
+spec:
+{{ toYaml .Values | indent 2 }}

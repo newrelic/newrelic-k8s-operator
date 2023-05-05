@@ -1,0 +1,36 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+# Helm installation
+
+You can install this chart using directly from this repository or by adding the Helm repository:
+
+```shell
+helm repo add newrelic https://helm-charts.newrelic.com && helm repo update
+helm upgrade --install newrelic/newrelic-k8s-operator -f your-custom-values.yaml
+```
+
+{{ template "chart.sourcesSection" . }}
+
+## Values
+
+The values for the chart follow the values in the [nri-bundle chart](https://github.com/newrelic/helm-charts/tree/master/charts/nri-bundle).
+
+{{ if .Maintainers }}
+## Maintainers
+{{ range .Maintainers }}
+{{- if .Name }}
+{{- if .Url }}
+* [{{ .Name }}]({{ .Url }})
+{{- else }}
+* {{ .Name }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
