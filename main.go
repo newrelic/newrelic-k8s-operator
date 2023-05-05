@@ -25,7 +25,7 @@ import (
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 
-	ctrlruntime "k8s.io/apimachinery/pkg/runtime"
+	k8sruntime "k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -38,7 +38,7 @@ import (
 )
 
 var (
-	scheme                         = ctrlruntime.NewScheme()
+	scheme                         = k8sruntime.NewScheme()
 	setupLog                       = ctrl.Log.WithName("setup")
 	defaultMaxConcurrentReconciles = runtime.NumCPU()
 	defaultReconcilePeriod         = time.Minute

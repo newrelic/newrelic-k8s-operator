@@ -21,7 +21,7 @@ import (
 	"runtime"
 	"time"
 
-	ctrlruntime "k8s.io/apimachinery/pkg/runtime"
+	k8sruntime "k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -46,7 +46,7 @@ var (
 // NewRelicReconciler reconciles a NewRelic object
 type NewRelicReconciler struct {
 	client.Client
-	Scheme *ctrlruntime.Scheme
+	Scheme *k8sruntime.Scheme
 
 	// The controller-runtime manager for managing the current nri-bundle version.
 	helmMgr *ctrl.Manager
