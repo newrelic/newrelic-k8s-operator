@@ -226,3 +226,4 @@ rules:
   - storageclasses
   - namespaces
   verbs: ["get", "list"]
+
