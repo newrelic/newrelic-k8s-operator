@@ -28,14 +28,15 @@ type NewRelicSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of NewRelic. Edit newrelic_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Version is the version of nri-bundle that should be deployed.
+	Version string `json:"version,omitempty"`
 }
 
 // NewRelicStatus defines the observed state of NewRelic
 type NewRelicStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Version string `json:"version,omitempty"`
 }
 
 //+kubebuilder:object:root=true
