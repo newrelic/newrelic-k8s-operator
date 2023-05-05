@@ -23,8 +23,8 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// NewRelicSpec defines the desired state of NewRelic
-type NewRelicSpec struct {
+// MonitorSpec defines the desired state of Monitor
+type MonitorSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
@@ -32,8 +32,8 @@ type NewRelicSpec struct {
 	Version string `json:"version,omitempty"`
 }
 
-// NewRelicStatus defines the observed state of NewRelic
-type NewRelicStatus struct {
+// MonitorStatus defines the observed state of Monitor
+type MonitorStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 	Version string `json:"version,omitempty"`
@@ -43,24 +43,24 @@ type NewRelicStatus struct {
 //+kubebuilder:subresource:status
 //+kubebuilder:resource:scope=Cluster
 
-// NewRelic is the Schema for the newrelics API
-type NewRelic struct {
+// Monitor is the Schema for the monitors API
+type Monitor struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   NewRelicSpec   `json:"spec,omitempty"`
-	Status NewRelicStatus `json:"status,omitempty"`
+	Spec   MonitorSpec   `json:"spec,omitempty"`
+	Status MonitorStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
 
-// NewRelicList contains a list of NewRelic
-type NewRelicList struct {
+// MonitorList contains a list of Monitor
+type MonitorList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []NewRelic `json:"items"`
+	Items           []Monitor `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&NewRelic{}, &NewRelicList{})
+	SchemeBuilder.Register(&Monitor{}, &MonitorList{})
 }
