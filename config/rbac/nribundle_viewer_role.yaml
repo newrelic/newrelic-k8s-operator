@@ -1,0 +1,27 @@
+# permissions for end users to view nribundles.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: nribundle-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: newrelic-operator
+    app.kubernetes.io/part-of: newrelic-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: nribundle-viewer-role
+rules:
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - nribundles
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - nribundles/status
+  verbs:
+  - get

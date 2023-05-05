@@ -1,0 +1,31 @@
+# permissions for end users to edit nribundles.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: nribundle-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: newrelic-operator
+    app.kubernetes.io/part-of: newrelic-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: nribundle-editor-role
+rules:
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - nribundles
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - newrelic.newrelic.com
+  resources:
+  - nribundles/status
+  verbs:
+  - get

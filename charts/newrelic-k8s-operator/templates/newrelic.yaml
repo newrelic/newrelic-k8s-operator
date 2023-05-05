@@ -1,0 +1,5 @@
+apiVersion: newrelic.newrelic.com/v1alpha1
+kind: NewRelic
+metadata:
+  name: newrelic
+spec:
