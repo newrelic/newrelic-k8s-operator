@@ -9,8 +9,8 @@ metadata:
     app.kubernetes.io/name: deployment
     app.kubernetes.io/instance: controller-manager
     app.kubernetes.io/component: manager
-    app.kubernetes.io/created-by: newrelic-operator
-    app.kubernetes.io/part-of: newrelic-operator
+    app.kubernetes.io/created-by: newrelic-k8s-operator
+    app.kubernetes.io/part-of: newrelic-k8s-operator
     app.kubernetes.io/managed-by: kustomize
 spec:
   selector:
@@ -56,7 +56,7 @@ spec:
       containers:
       - args:
         - --leader-elect
-        - --leader-election-id=newrelic-operator
+        - --leader-election-id=newrelic-k8s-operator
         image: controller:latest
         name: manager
         securityContext:
