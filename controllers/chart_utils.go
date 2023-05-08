@@ -34,8 +34,8 @@ func LoadChart(repository, chart, version string) (*chart.Chart, error) {
 		return nil, err
 	}
 	defer func() {
-		if err := os.RemoveAll(tmpDir); err != nil {
-			ctrlLog.Error(err, "Failed to remove temporary directory")
+		if rmErr := os.RemoveAll(tmpDir); err != nil {
+			ctrlLog.Error(rmErr, "Failed to remove temporary directory")
 		}
 	}()
 

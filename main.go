@@ -19,8 +19,6 @@ package main
 import (
 	"flag"
 	"os"
-	"runtime"
-	"time"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
@@ -38,10 +36,8 @@ import (
 )
 
 var (
-	scheme                         = k8sruntime.NewScheme()
-	setupLog                       = ctrl.Log.WithName("setup")
-	defaultMaxConcurrentReconciles = runtime.NumCPU()
-	defaultReconcilePeriod         = time.Minute
+	scheme   = k8sruntime.NewScheme()
+	setupLog = ctrl.Log.WithName("setup")
 )
 
 func init() {
@@ -112,6 +108,7 @@ func main() {
 	setupLog.Info("starting manager")
 	if err := mgr.Start(ctrl.SetupSignalHandler()); err != nil {
 		setupLog.Error(err, "problem running manager")
+		reconciler.Stop()
 		os.Exit(1)
 	}
 }
