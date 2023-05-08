@@ -66,7 +66,7 @@ func (r *NewRelicReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 	var nr newrelicv1alpha1.Monitor
 	if err := r.Get(ctx, req.NamespacedName, &nr); err != nil {
 		ctrlLog.Info("NewRelic CRD deleted, running deletion")
-		return r.reconcileDelete(nr)
+		return r.reconcileDelete()
 	}
 
 	nr, result, err := r.reconcile(nr)
@@ -106,7 +106,7 @@ func (r *NewRelicReconciler) patchStatus(ctx context.Context, nr *newrelicv1alph
 	return r.Client.Status().Patch(ctx, latest, patch)
 }
 
-func (r *NewRelicReconciler) reconcileDelete(nr newrelicv1alpha1.Monitor) (ctrl.Result, error) {
+func (r *NewRelicReconciler) reconcileDelete() (ctrl.Result, error) {
 	// Deleting the NewRelic CRD stops the HelmManager.
 	r.stopHelmManager()
 
