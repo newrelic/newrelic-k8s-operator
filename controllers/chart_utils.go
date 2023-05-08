@@ -34,7 +34,7 @@ func LoadChart(repository, chart, version string) (*chart.Chart, error) {
 		return nil, err
 	}
 	defer func() {
-		if rmErr := os.RemoveAll(tmpDir); err != nil {
+		if rmErr := os.RemoveAll(tmpDir); rmErr != nil {
 			ctrlLog.Error(rmErr, "Failed to remove temporary directory")
 		}
 	}()
@@ -60,11 +60,13 @@ func downloadChart(destDir string, repository, chart, version string) (string, e
 
 	chartURL, err := repo.FindChartInRepoURL(repository, chart, version, "", "", "", getters)
 	if err != nil {
+		ctrlLog.Error(err, "Failed to find chart with repo URL")
 		return "", err
 	}
 
 	chartArchive, _, err := c.DownloadTo(chartURL, version, destDir)
 	if err != nil {
+		ctrlLog.Error(err, "Failed to download chart to destDir")
 		return "", err
 	}
 

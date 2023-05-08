@@ -29,6 +29,8 @@ WORKDIR /app
 RUN apk add --no-cache --upgrade ca-certificates
 RUN addgroup -g 2000 newrelic-k8s-operator \
     && adduser -D -H -u 1000 -G newrelic-k8s-operator newrelic-k8s-operator
+RUN mkdir -p /home/newrelic-k8s-operator/.cache/helm/repository
+RUN chown newrelic-k8s-operator /home/newrelic-k8s-operator/.cache/helm/repository
 
 USER newrelic-k8s-operator
 
