@@ -28,6 +28,26 @@ jobs:
         with:
           username: ${{ secrets.FSI_DOCKERHUB_USERNAME }}
           password: ${{ secrets.FSI_DOCKERHUB_TOKEN }}
+      - name: Build and load x64 image
+        # We need to build a single-arch image again to be able to --load it into the host
+        uses: docker/build-push-action@v4
+        with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          context: .
+          load: true
+          push: false
+          platforms: |
+            linux/amd64
+          tags: newrelic/newrelic-k8s-operator:ci-scan
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.10.0
+        with:
+          image-ref: newrelic/newrelic-k8s-operator:ci-scan
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
       - name: Build and push docker image
         uses: docker/build-push-action@v4
         with:
