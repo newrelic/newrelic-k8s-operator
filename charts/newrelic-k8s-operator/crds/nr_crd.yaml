@@ -4,20 +4,20 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.11.1
   creationTimestamp: null
-  name: newrelics.newrelic.newrelic.com
+  name: monitors.newrelic.com
 spec:
-  group: newrelic.newrelic.com
+  group: newrelic.com
   names:
-    kind: NewRelic
-    listKind: NewRelicList
-    plural: newrelics
-    singular: newrelic
+    kind: Monitor
+    listKind: MonitorList
+    plural: monitors
+    singular: monitor
   scope: Cluster
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: NewRelic is the Schema for the newrelics API
+        description: Monitor is the Schema for the monitors API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -32,14 +32,14 @@ spec:
           metadata:
             type: object
           spec:
-            description: NewRelicSpec defines the desired state of NewRelic
+            description: MonitorSpec defines the desired state of Monitor
             properties:
               version:
                 description: Version is the version of nri-bundle that should be deployed.
                 type: string
             type: object
           status:
-            description: NewRelicStatus defines the observed state of NewRelic
+            description: MonitorStatus defines the observed state of Monitor
             properties:
               version:
                 description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
@@ -56,9 +56,9 @@ spec:
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: nribundles.newrelic.newrelic.com
+  name: nribundles.newrelic.com
 spec:
-  group: newrelic.newrelic.com
+  group: newrelic.com
   names:
     kind: NRIBundle
     listKind: NRIBundleList
