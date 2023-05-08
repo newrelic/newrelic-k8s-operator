@@ -74,6 +74,10 @@ test: manifests generate fmt vet envtest ## Run tests.
 
 
 ##@ Build
+.PHONY: build
+build:
+	CGO_ENABLED=0 go build -o bin/manager main.go
+
 .PHONY: docker-build
 docker-build: test ## Build docker image with the manager.
 	docker buildx build -t ${IMG} --load .
