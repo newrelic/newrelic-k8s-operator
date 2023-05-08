@@ -1,5 +1,11 @@
 # Build the manager binary
-FROM golang:1.19 as builder
+FROM golang:1.19-alpine AS build
+
+# Set by docker automatically
+ARG TARGETOS TARGETARCH
+
+ARG GOOS=$TARGETOS
+ARG GOARCH=$TARGETARCH
 
 WORKDIR /workspace
 # Copy the Go Modules manifests
@@ -15,24 +21,17 @@ COPY api/ api/
 COPY controllers/ controllers/
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o manager main.go
+RUN CGO_ENABLED=0 go build -o manager main.go
 
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.4
+FROM alpine:3.17.3
+WORKDIR /app
 
-ENV HOME=/opt/helm \
-    USER_NAME=helm \
-    USER_UID=1001
+RUN apk add --no-cache --upgrade ca-certificates
+RUN addgroup -g 2000 newrelic-k8s-operator \
+    && adduser -D -H -u 1000 -G newrelic-k8s-operator newrelic-k8s-operator
 
-RUN echo "${USER_NAME}:x:${USER_UID}:0:${USER_NAME} user:${HOME}:/sbin/nologin" >> /etc/passwd
+USER newrelic-k8s-operator
 
-# Copy necessary files with the right permissions
-COPY --chown=${USER_UID}:0 watches.yaml ${HOME}/watches.yaml
+COPY --chown=newrelic-k8s-operator:newrelic-k8s-operator --from=build /workspace/manager ./
 
-# Copy manager binary
-COPY --from=builder /workspace/manager .
-
-USER ${USER_UID}
-
-WORKDIR ${HOME}
-
-ENTRYPOINT ["/manager"]
+ENTRYPOINT ["./manager"]

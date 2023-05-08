@@ -115,7 +115,11 @@ run: manifests generate fmt vet ## Run against the configured Kubernetes cluster
 	
 .PHONY: docker-build
 docker-build: test ## Build docker image with the manager.
-	docker build -t ${IMG}
+	docker buildx build -t ${IMG} --load .
+
+.PHONY: docker-multiarch
+docker-multiarch:
+	docker buildx build --platform linux/amd64,linux/arm64,linux/arm -t ${IMG} .
 
 .PHONY: docker-push
 docker-push: ## Push docker image with the manager.
