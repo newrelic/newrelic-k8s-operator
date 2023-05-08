@@ -13,7 +13,7 @@ VERSION ?= 0.0.1
 IMAGE_TAG_BASE ?= newrelic/newrelic-k8s-operator
 
 # Image URL to use all building/pushing image targets
-IMG ?= controller:latest
+IMG ?= newrelic/newrelic-k8s-operator
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
 ENVTEST_K8S_VERSION = 1.25.0
 
@@ -109,7 +109,7 @@ undeploy: ## Undeploy controller from the K8s cluster specified in ~/.kube/confi
 helm: manifests kustomize
 	cd config/manager && $(KUSTOMIZE) edit set image controller=${IMG}
 	$(KUSTOMIZE) build config/crd > charts/newrelic-k8s-operator/crds/nr_crd.yaml
-	$(KUSTOMIZE) build config/default | sed 's/newrelic-k8s-operator-system/{{.Release.Namespace}}/g' > charts/newrelic-k8s-operator/templates/operator.yaml
+	$(KUSTOMIZE) build config/default | sed -e 's/:latest/:{{.Chart.AppVersion}}/g' -e 's/newrelic-k8s-operator-system/{{.Release.Namespace}}/g' > charts/newrelic-k8s-operator/templates/operator.yaml
 
 ##@ Build Dependencies
 

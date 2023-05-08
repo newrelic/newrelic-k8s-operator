@@ -1,4 +1,4 @@
-apiVersion: newrelic.newrelic.com/v1alpha1
+apiVersion: newrelic.com/v1alpha1
 kind: NRIBundle
 metadata:
   name: nribundle
