@@ -2,7 +2,7 @@
 
 # New Relic K8s Operator
 
-This repository contains the source code for New Relic's K8s operator. The K8s operator helps users deploy and manage their deployment of [New Relic's K8s solution](https://github.com/newrelic/helm-charts/tree/master/charts/nri-bundle).
+This repository contains the source code for New Relic's K8s operator. The K8s operator helps users deploy and manage their deployment of (New Relic's K8s solution)[https://github.com/newrelic/helm-charts/tree/master/charts/nri-bundle].
 
 The K8s operator is built using Operator Framework's (Hybrid Helm Operator)[https://github.com/operator-framework/helm-operator-plugins].
 
@@ -19,15 +19,15 @@ The K8s operator is built using Operator Framework's (Hybrid Helm Operator)[http
 
 ## Installation
 
-For installation instructions, refer to our (docs)[].
+For installation instructions, refer to our (docs)[https://docs.newrelic.com/docs/kubernetes-pixie/kubernetes-integration/get-started/kubernetes-operator/].
 
 ## Helm chart
 
 You can install this chart using directly from this repository or by adding the Helm repository:
 
 ```shell
-helm repo add newrelic https://helm-charts.newrelic.com && helm repo update
-helm upgrade --install newrelic/newrelic-k8s-operator -f your-custom-values.yaml
+helm repo add nr-operator https://newrelic.github.io/newrelic-k8s-operator && helm repo update
+helm upgrade --install nr-operator/newrelic-k8s-operator -f your-custom-values.yaml
 ```
 
 For further information of the configuration needed for the chart just read the [chart's README](/charts/newrelic-k8s-operator/README.md).
@@ -87,9 +87,9 @@ make undeploy
 
 ## Support
 
-New Relic hosts and moderates an online forum where you can interact with New Relic employees as well as other customers to get help and share best practices. Like all official New Relic open source projects, there's a related Community topic in the New Relic Explorers Hub. You can find this project's topic/threads here:
+New Relic hosts and moderates an online forum where you can interact with New Relic employees as well as other customers to get help and share best practices. Like all official New Relic open source projects, there's a related Community topic in the New Relic Explorers Hub. 
 
->Add the url for the support thread here: discuss.newrelic.com
+If the issue has been confirmed as a bug or is a feature request, file a GitHub issue.
 
 ## Contribute
 
