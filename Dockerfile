@@ -23,7 +23,7 @@ COPY controllers/ controllers/
 # Build
 RUN CGO_ENABLED=0 go build -o manager main.go
 
-FROM alpine:3.17.3
+FROM alpine:3.18.0
 WORKDIR /app
 
 RUN apk add --no-cache --upgrade ca-certificates
