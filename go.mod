@@ -8,7 +8,7 @@ require (
 	github.com/operator-framework/helm-operator-plugins v0.0.11
 	helm.sh/helm/v3 v3.11.3
 	k8s.io/apimachinery v0.26.2
-	k8s.io/client-go v0.26.2
+	k8s.io/client-go v11.0.0+incompatible
 	sigs.k8s.io/controller-runtime v0.14.6
 )
 
