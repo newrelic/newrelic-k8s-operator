@@ -2,9 +2,9 @@
 
 # New Relic K8s Operator
 
-This repository contains the source code for New Relic's K8s operator. The K8s operator helps users deploy and manage their deployment of (New Relic's K8s solution)[https://github.com/newrelic/helm-charts/tree/master/charts/nri-bundle].
+This repository contains the source code for New Relic's K8s operator. The K8s operator helps users deploy and manage their deployment of [New Relic's K8s solution](https://github.com/newrelic/helm-charts/tree/master/charts/nri-bundle).
 
-The K8s operator is built using Operator Framework's (Hybrid Helm Operator)[https://github.com/operator-framework/helm-operator-plugins].
+The K8s operator is built using Operator Framework's [Hybrid Helm Operator](https://github.com/operator-framework/helm-operator-plugins).
 
 ## Table of contents
 
@@ -19,7 +19,7 @@ The K8s operator is built using Operator Framework's (Hybrid Helm Operator)[http
 
 ## Installation
 
-For installation instructions, refer to our (docs)[https://docs.newrelic.com/docs/kubernetes-pixie/kubernetes-integration/get-started/kubernetes-operator/].
+For installation instructions, refer to our [docs](https://docs.newrelic.com/docs/kubernetes-pixie/kubernetes-integration/get-started/kubernetes-operator/).
 
 ## Helm chart
 
@@ -30,7 +30,7 @@ helm repo add nr-operator https://newrelic.github.io/newrelic-k8s-operator && he
 helm upgrade --install nr-operator/newrelic-k8s-operator -f your-custom-values.yaml
 ```
 
-For further information of the configuration needed for the chart just read the [chart's README](/charts/newrelic-k8s-operator/README.md).
+For further information of the configuration needed for the chart, you can follow the configuration specified in the [nri-bundle chart](https://github.com/newrelic/helm-charts/tree/master/charts/nri-bundle). Please make sure `global.licenseKey` is specified.
 
 ## Development flow
 
