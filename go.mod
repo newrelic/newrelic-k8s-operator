@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/onsi/ginkgo/v2 v2.9.5
-	github.com/onsi/gomega v1.27.6
+	github.com/onsi/gomega v1.27.7
 	github.com/operator-framework/helm-operator-plugins v0.0.11
 	helm.sh/helm/v3 v3.11.3
 	k8s.io/apimachinery v0.26.2
