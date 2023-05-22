@@ -27,7 +27,7 @@ You can install this chart using directly from this repository or by adding the 
 
 ```shell
 helm repo add nr-operator https://newrelic.github.io/newrelic-k8s-operator && helm repo update
-helm upgrade --install nr-operator/newrelic-k8s-operator -f your-custom-values.yaml
+helm upgrade --install nr-operator nr-operator/newrelic-k8s-operator -f your-custom-values.yaml
 ```
 
 For further information of the configuration needed for the chart, you can follow the configuration specified in the [nri-bundle chart](https://github.com/newrelic/helm-charts/tree/master/charts/nri-bundle). Please make sure `global.licenseKey` is specified.
