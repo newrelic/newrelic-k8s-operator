@@ -1,4 +1,5 @@
 version: ""
+newRelicLicenseKey: ""
 newrelic-infrastructure:
   # newrelic-infrastructure.enabled -- Install the [`newrelic-infrastructure` chart](https://github.com/newrelic/nri-kubernetes/tree/main/charts/newrelic-infrastructure)
   enabled: true
@@ -57,9 +58,9 @@ global:
   # -- The license key for your New Relic Account. This will be preferred configuration option if both `insightsKey` and `customSecret` are specified.
   insightsKey: ""
   # -- Name of the Secret object where the license key is stored
-  customSecretName: ""
+  customSecretName: "newrelic-secrets"
   # -- Key in the Secret object where the license key is stored
-  customSecretLicenseKey: ""
+  customSecretLicenseKey: "license-key"
 
   # -- Additional labels for chart objects
   labels: {}
