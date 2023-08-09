@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM --platform=$BUILDPLATFORM golang:1.20-alpine AS build
+FROM --platform=$BUILDPLATFORM golang:1.21-alpine AS build
 
 # Set by docker automatically
 ARG TARGETOS TARGETARCH
