@@ -15,7 +15,7 @@ IMAGE_TAG_BASE ?= newrelic/newrelic-k8s-operator
 # Image URL to use all building/pushing image targets
 IMG ?= newrelic/newrelic-k8s-operator
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
-ENVTEST_K8S_VERSION = 1.27.5
+ENVTEST_K8S_VERSION = v1.27.5
 
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
 ifeq (,$(shell go env GOBIN))
