@@ -1,0 +1,12 @@
+# This action requires that any PR should touch at
+# least one CHANGELOG file.
+
+name: changelog
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+jobs:
+  check-changelog:
+    uses: newrelic/k8s-metadata-injection/.github/workflows/changelog-reusable.yml@main
