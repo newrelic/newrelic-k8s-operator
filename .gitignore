@@ -15,3 +15,5 @@ bin
 
 # coverage outout
 cover.out
+
+CHANGELOG.partial.md
