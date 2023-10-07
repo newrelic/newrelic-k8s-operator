@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM --platform=$BUILDPLATFORM golang:1.20-alpine AS build
+FROM --platform=$BUILDPLATFORM golang:1.21-alpine AS build
 
 # Set by docker automatically
 ARG TARGETOS TARGETARCH
@@ -23,7 +23,7 @@ COPY controllers/ controllers/
 # Build
 RUN CGO_ENABLED=0 go build -o manager main.go
 
-FROM alpine:3.18.2
+FROM alpine:3.18.4
 WORKDIR /app
 
 RUN apk add --no-cache --upgrade ca-certificates
