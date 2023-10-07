@@ -19,7 +19,7 @@ The K8s operator is built using Operator Framework's [Hybrid Helm Operator](http
 
 ## Installation
 
-For installation instructions, refer to our [docs](https://docs.newrelic.com/docs/kubernetes-pixie/kubernetes-integration/get-started/kubernetes-operator/).
+For installation instructions, refer to our [docs](https://docs.newrelic.com/docs/kubernetes-pixie/kubernetes-integration/installation/install-with-operator/).
 
 ## Helm chart
 
