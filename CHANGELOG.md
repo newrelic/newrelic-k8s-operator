@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### enhancement
+- Sync versions between app image and Helm chart to ease customer inception by @juanjjaramillo in [#73](https://github.com/newrelic/newrelic-k8s-operator/pull/73)
+
 ## v0.1.0 - 2023-10-07
 
 ### 🚀 Enhancements
