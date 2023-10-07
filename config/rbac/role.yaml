@@ -101,6 +101,7 @@ rules:
   - list
   - create
   - watch
+  - patch
 - apiGroups:
   - rbac.authorization.k8s.io
   resources:
