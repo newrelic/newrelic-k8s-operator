@@ -1,9 +1,6 @@
 {
   "extends": [
-    "config:base"
+    "github>newrelic/coreint-automation:renovate-base.json5"
   ],
-  "postUpdateOptions": [
-    "gomodTidy"
-  ]
+  ignoreDeps: ["ingress-nginx/kube-webhook-certgen"],
 }
-
