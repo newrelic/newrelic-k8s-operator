@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### security
+- Operator gets New Relic License Key from a secret instead of NRIBundle CR.
+
 ## v0.3.0 - 2023-10-23
 
 ### ⛓️ Dependencies
