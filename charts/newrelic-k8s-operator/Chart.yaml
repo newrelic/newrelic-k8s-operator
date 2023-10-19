@@ -16,7 +16,6 @@ sources:
 # utilities and functions into the rendering pipeline. Library charts do not
 # define any templates and therefore cannot be deployed.
 type: application
-
 # This is the chart version. This version number should be incremented each
 # time you make changes to the chart and its templates, including the app
 # version.
@@ -27,8 +26,7 @@ version: 0.2.0
 # application. Versions are not expected to follow Semantic Versioning.
 # They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "0.0.1"
-
+appVersion: "0.2.0"
 maintainers:
   - name: aimichelle
     url: https://github.com/aimichelle
@@ -36,7 +34,6 @@ maintainers:
     url: https://github.com/htroisi
   - name: vihangm
     url: https://github.com/vihangm
-
 keywords:
   - infrastructure
   - newrelic
