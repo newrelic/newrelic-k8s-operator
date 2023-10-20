@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### enhancement
+- Make `licenseKey` parameter optional in the Helm Chart.
+
 ### security
 - Operator gets New Relic License Key from a secret instead of NRIBundle CR.
 
