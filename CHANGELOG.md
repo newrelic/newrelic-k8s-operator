@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.3.0 - 2023-10-23
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/gomega to v1.28.1 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.28.1)
+- Upgraded golang.org/x/net from 0.14.0 to 0.17.0
+- Upgraded github.com/cyphar/filepath-securejoin from 0.2.3 to 0.2.4 - [Changelog 🔗](https://github.com/cyphar/filepath-securejoin/releases/tag/v0.2.4)
+
 ## v0.2.1 - 2023-10-16
 
 ### ⛓️ Dependencies
