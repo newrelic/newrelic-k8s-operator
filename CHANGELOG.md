@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### enhancement
+- Make `licenseKey` parameter optional in the Helm Chart.
+
+### bugfix
+- Do not set the version for the Monitor CR if its input value in the Helm Chart is empty.
+
+### security
+- Operator gets New Relic License Key from a secret instead of NRIBundle CR.
+
 ## v0.3.0 - 2023-10-23
 
 ### ⛓️ Dependencies

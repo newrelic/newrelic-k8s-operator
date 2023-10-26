@@ -2,5 +2,9 @@ apiVersion: newrelic.com/v1alpha1
 kind: Monitor
 metadata:
   name: newrelic
+{{- if .Values.version }}
 spec:
-  version: {{.Values.version}}
+  version: {{ .Values.version }}
+{{- else }}
+spec: {}
+{{- end }}
