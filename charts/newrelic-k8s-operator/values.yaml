@@ -1,5 +1,48 @@
 version: ""
 newRelicLicenseKey: ""
+# -- change the operator controller configurations.
+# @default -- See [`values.yaml`](values.yaml)
+controller:
+  # -- change the operator controller's pod manager container configurations.
+  # @default -- See [`values.yaml`](values.yaml)
+  manager:
+    # -- change the operator controller's pod manager container resources configurations.
+    # @default -- See [`values.yaml`](values.yaml)
+    resources:
+      limits:
+        # -- (string) Sets manager container in the controller's CPU resource limits
+        # @default -- 500m
+        cpu: 500m
+        # -- (string) Sets manager container in the controller's Memory resource limits
+        # @default -- 512Mi
+        memory: 512Mi
+      requests:
+        # -- (string) Sets manager container in the controller's CPU resource requests
+        # @default -- 10m
+        cpu: 10m
+        # -- (string) Sets manager container in the controller's Memory resource requests
+        # @default -- 256Mi
+        memory: 256Mi
+  # -- change the operator controller's pod kube-rbac-proxy container configurations.
+  # @default -- See [`values.yaml`](values.yaml)
+  rbacProxy:
+  # -- change the operator controller's pod pod kube-rbac-proxy container resources configurations.
+  # @default -- See [`values.yaml`](values.yaml)
+    resources:
+      limits:
+        # -- (string) Sets kube-rbac-proxy container in the controller's CPU resource limits
+        # @default -- 500m
+        cpu: 500m
+        # -- (string) Sets kube-rbac-proxy container in the controller's Memory resource limits
+        # @default -- 128Mi
+        memory: 128Mi
+      requests:
+        # -- (string) Sets kube-rbac-proxy container in the controller's CPU resource requests
+        # @default -- 5m
+        cpu: 5m
+        # -- (string) Sets kube-rbac-proxy container in the controller's Memory resource requests
+        # @default -- 64Mi
+        memory: 64Mi
 newrelic-infrastructure:
   # newrelic-infrastructure.enabled -- Install the [`newrelic-infrastructure` chart](https://github.com/newrelic/nri-kubernetes/tree/main/charts/newrelic-infrastructure)
   enabled: true

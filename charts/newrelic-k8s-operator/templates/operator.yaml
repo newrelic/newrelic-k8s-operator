@@ -443,12 +443,7 @@ spec:
           name: https
           protocol: TCP
         resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 5m
-            memory: 64Mi
+          {{- toYaml .Values.controller.rbacProxy.resources | nindent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -474,12 +469,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
         resources:
-          limits:
-            cpu: 500m
-            memory: 512Mi
-          requests:
-            cpu: 10m
-            memory: 256Mi
+          {{- toYaml .Values.controller.manager.resources | nindent 10 }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
