@@ -7,14 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-### enhancement
+## v0.4.0 - 2023-10-30
+
+### 🛡️ Security notices
+- Operator gets New Relic License Key from a secret instead of NRIBundle CR.
+
+### 🚀 Enhancements
 - Make `licenseKey` parameter optional in the Helm Chart.
 
-### bugfix
+### 🐞 Bug fixes
 - Do not set the version for the Monitor CR if its input value in the Helm Chart is empty.
 
-### security
-- Operator gets New Relic License Key from a secret instead of NRIBundle CR.
+### ⛓️ Dependencies
+- Updated github.com/onsi/gomega to v1.29.0 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.29.0)
 
 ## v0.3.0 - 2023-10-23
 
