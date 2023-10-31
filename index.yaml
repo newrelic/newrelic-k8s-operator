@@ -2,6 +2,31 @@ apiVersion: v1
 entries:
   newrelic-k8s-operator:
   - apiVersion: v2
+    appVersion: 0.4.0
+    created: "2023-10-31T19:20:19.523582161Z"
+    description: A Helm chart for New Relic's Kubernetes operator.
+    digest: b5e599ff62d1f25c55ea154b155cf13bf153bf86ed57669e2fb0fbe4d3efa482
+    home: https://github.com/newrelic/newrelic-k8s-operator
+    icon: https://newrelic.com/assets/newrelic/source/NewRelic-logo-square.svg
+    keywords:
+    - infrastructure
+    - newrelic
+    - monitoring
+    maintainers:
+    - name: aimichelle
+      url: https://github.com/aimichelle
+    - name: htroisi
+      url: https://github.com/htroisi
+    - name: vihangm
+      url: https://github.com/vihangm
+    name: newrelic-k8s-operator
+    sources:
+    - https://github.com/newrelic/newrelic-k8s-operator/
+    type: application
+    urls:
+    - https://github.com/newrelic/newrelic-k8s-operator/releases/download/newrelic-k8s-operator-0.4.0/newrelic-k8s-operator-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: 0.3.0
     created: "2023-10-23T21:47:49.642728583Z"
     description: A Helm chart for New Relic's Kubernetes operator.
@@ -151,4 +176,4 @@ entries:
     urls:
     - https://github.com/newrelic/newrelic-k8s-operator/releases/download/newrelic-k8s-operator-0.1.1/newrelic-k8s-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2023-10-23T21:47:49.642747984Z"
+generated: "2023-10-31T19:20:19.523607462Z"
