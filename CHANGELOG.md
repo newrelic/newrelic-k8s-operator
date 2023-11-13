@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-### enhancement
+## v0.5.0 - 2023-11-13
+
+### 🚀 Enhancements
 - Add full k8s 1.28 support by @svetlanabrennan in [#89](https://github.com/newrelic/newrelic-k8s-operator/pull/89)
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/gomega to v1.30.0 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.30.0)
+- Updated github.com/onsi/ginkgo/v2 to v2.13.1 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.13.1)
 
 ## v0.4.0 - 2023-10-30
 
