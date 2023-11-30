@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### enhancement
+- Update reusable workflow dependency by @juanjjaramillo [#93](https://github.com/newrelic/newrelic-k8s-operator/pull/93)
 
 ## v0.5.0 - 2023-11-13
 
