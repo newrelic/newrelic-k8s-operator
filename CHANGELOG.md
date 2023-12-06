@@ -6,8 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
-### enhancement
+
+## v0.6.0 - 2023-12-06
+
+### 🚀 Enhancements
 - Update reusable workflow dependency by @juanjjaramillo [#93](https://github.com/newrelic/newrelic-k8s-operator/pull/93)
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/ginkgo/v2 to v2.13.2 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.13.2)
 
 ## v0.5.0 - 2023-11-13
 
