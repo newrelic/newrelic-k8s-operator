@@ -24,37 +24,37 @@ metadata:
   name: newrelic-k8s-operator-leader-election-role
   namespace: {{.Release.Namespace}}
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - coordination.k8s.io
-  resources:
-  - leases
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-  - patch
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -62,207 +62,207 @@ metadata:
   creationTimestamp: null
   name: newrelic-k8s-operator-manager-role
 rules:
-- apiGroups:
-  - newrelic.com
-  resources:
-  - monitors
-  - nribundles
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - newrelic.com
-  resources:
-  - monitors/finalizers
-  - nribundles/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - newrelic.com
-  resources:
-  - monitors/status
-  - nribundles/status
-  verbs:
-  - get
-  - patch
-  - update
-- apiGroups:
-  - ""
-  resources:
-  - namespaces
-  verbs:
-  - get
-  - create
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - '*'
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-- apiGroups:
-  - admissionregistration.k8s.io
-  resources:
-  - mutatingwebhookconfigurations
-  verbs:
-  - get
-  - create
-  - list
-  - update
-  - patch
-  - delete
-  - watch
-- apiGroups:
-  - px.dev
-  resources:
-  - viziers
-  verbs:
-  - create
-  - get
-  - list
-  - delete
-- apiGroups:
-  - apiextensions.k8s.io
-  resources:
-  - customresourcedefinitions
-  verbs:
-  - create
-  - list
-- apiGroups:
-  - operators.coreos.com
-  resources:
-  - operatorgroups
-  - catalogsources
-  - subscriptions
-  - installplans
-  verbs:
-  - get
-  - list
-  - create
-  - watch
-  - patch
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - clusterroles
-  - clusterrolebindings
-  - roles
-  - rolebindings
-  verbs:
-  - get
-  - create
-  - list
-  - delete
-  - update
-  - patch
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  - services
-  - services/finalizers
-  - endpoints
-  - persistentvolumeclaims
-  - events
-  - configmaps
-  - secrets
-  - serviceaccounts
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  - daemonsets
-  - replicasets
-  - statefulsets
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - batch
-  resources:
-  - jobs
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  - apps
-  - rbac.authorization.k8s.io
-  - extensions
-  - etcd.database.coreos.com
-  - batch
-  - nats.io
-  - policy
-  - apiextensions.k8s.io
-  - px.dev
-  resources:
-  - clusterroles
-  - clusterrolebindings
-  - configmaps
-  - customresourcedefinitions
-  - secrets
-  - pods
-  - events
-  - services
-  - deployments
-  - daemonsets
-  - nodes
-  - persistentvolumes
-  - persistentvolumeclaims
-  - roles
-  - rolebindings
-  - serviceaccounts
-  - etcdclusters
-  - statefulsets
-  - cronjobs
-  - jobs
-  - natsclusters
-  - poddisruptionbudgets
-  - viziers
-  - viziers/status
-  - podsecuritypolicies
-  verbs:
-  - '*'
-- apiGroups:
-  - storage.k8s.io
-  - ""
-  resources:
-  - storageclasses
-  - namespaces
-  verbs:
-  - get
-  - list
+  - apiGroups:
+      - newrelic.com
+    resources:
+      - monitors
+      - nribundles
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - newrelic.com
+    resources:
+      - monitors/finalizers
+      - nribundles/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - newrelic.com
+    resources:
+      - monitors/status
+      - nribundles/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - create
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+  - apiGroups:
+      - admissionregistration.k8s.io
+    resources:
+      - mutatingwebhookconfigurations
+    verbs:
+      - get
+      - create
+      - list
+      - update
+      - patch
+      - delete
+      - watch
+  - apiGroups:
+      - px.dev
+    resources:
+      - viziers
+    verbs:
+      - create
+      - get
+      - list
+      - delete
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - create
+      - list
+  - apiGroups:
+      - operators.coreos.com
+    resources:
+      - operatorgroups
+      - catalogsources
+      - subscriptions
+      - installplans
+    verbs:
+      - get
+      - list
+      - create
+      - watch
+      - patch
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterroles
+      - clusterrolebindings
+      - roles
+      - rolebindings
+    verbs:
+      - get
+      - create
+      - list
+      - delete
+      - update
+      - patch
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - services
+      - services/finalizers
+      - endpoints
+      - persistentvolumeclaims
+      - events
+      - configmaps
+      - secrets
+      - serviceaccounts
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - daemonsets
+      - replicasets
+      - statefulsets
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - ""
+      - apps
+      - rbac.authorization.k8s.io
+      - extensions
+      - etcd.database.coreos.com
+      - batch
+      - nats.io
+      - policy
+      - apiextensions.k8s.io
+      - px.dev
+    resources:
+      - clusterroles
+      - clusterrolebindings
+      - configmaps
+      - customresourcedefinitions
+      - secrets
+      - pods
+      - events
+      - services
+      - deployments
+      - daemonsets
+      - nodes
+      - persistentvolumes
+      - persistentvolumeclaims
+      - roles
+      - rolebindings
+      - serviceaccounts
+      - etcdclusters
+      - statefulsets
+      - cronjobs
+      - jobs
+      - natsclusters
+      - poddisruptionbudgets
+      - viziers
+      - viziers/status
+      - podsecuritypolicies
+    verbs:
+      - "*"
+  - apiGroups:
+      - storage.k8s.io
+      - ""
+    resources:
+      - storageclasses
+      - namespaces
+    verbs:
+      - get
+      - list
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -276,10 +276,10 @@ metadata:
     app.kubernetes.io/part-of: newrelic-k8s-operator
   name: newrelic-k8s-operator-metrics-reader
 rules:
-- nonResourceURLs:
-  - /metrics
-  verbs:
-  - get
+  - nonResourceURLs:
+      - /metrics
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -293,18 +293,18 @@ metadata:
     app.kubernetes.io/part-of: newrelic-k8s-operator
   name: newrelic-k8s-operator-proxy-role
 rules:
-- apiGroups:
-  - authentication.k8s.io
-  resources:
-  - tokenreviews
-  verbs:
-  - create
-- apiGroups:
-  - authorization.k8s.io
-  resources:
-  - subjectaccessreviews
-  verbs:
-  - create
+  - apiGroups:
+      - authentication.k8s.io
+    resources:
+      - tokenreviews
+    verbs:
+      - create
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -323,9 +323,9 @@ roleRef:
   kind: Role
   name: newrelic-k8s-operator-leader-election-role
 subjects:
-- kind: ServiceAccount
-  name: newrelic-k8s-operator-controller-manager
-  namespace: {{.Release.Namespace}}
+  - kind: ServiceAccount
+    name: newrelic-k8s-operator-controller-manager
+    namespace: {{.Release.Namespace}}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -343,9 +343,9 @@ roleRef:
   kind: ClusterRole
   name: newrelic-k8s-operator-manager-role
 subjects:
-- kind: ServiceAccount
-  name: newrelic-k8s-operator-controller-manager
-  namespace: {{.Release.Namespace}}
+  - kind: ServiceAccount
+    name: newrelic-k8s-operator-controller-manager
+    namespace: {{.Release.Namespace}}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -363,9 +363,9 @@ roleRef:
   kind: ClusterRole
   name: newrelic-k8s-operator-proxy-role
 subjects:
-- kind: ServiceAccount
-  name: newrelic-k8s-operator-controller-manager
-  namespace: {{.Release.Namespace}}
+  - kind: ServiceAccount
+    name: newrelic-k8s-operator-controller-manager
+    namespace: {{.Release.Namespace}}
 ---
 apiVersion: v1
 kind: Service
@@ -382,10 +382,10 @@ metadata:
   namespace: {{.Release.Namespace}}
 spec:
   ports:
-  - name: https
-    port: 8443
-    protocol: TCP
-    targetPort: https
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: https
   selector:
     control-plane: controller-manager
 ---
@@ -415,68 +415,77 @@ spec:
         control-plane: controller-manager
     spec:
       affinity:
+      {{- $affinity := include "newrelic.common.affinity" . }}
+      {{- if not $affinity }}
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-                - arm64
-                - ppc64le
-                - s390x
-              - key: kubernetes.io/os
-                operator: In
-                values:
-                - linux
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+                      - arm64
+                      - ppc64le
+                      - s390x
+                  - key: kubernetes.io/os
+                    operator: In
+                    values:
+                      - linux
+      {{- else }}
+        {{- $affinity | nindent 8 }}
+      {{- end }}
       containers:
-      - args:
-        - --secure-listen-address=0.0.0.0:8443
-        - --upstream=http://127.0.0.1:8080/
-        - --logtostderr=true
-        - --v=0
-        image: gcr.io/kubebuilder/kube-rbac-proxy:v0.13.1
-        name: kube-rbac-proxy
-        ports:
-        - containerPort: 8443
-          name: https
-          protocol: TCP
-        resources:
-          {{- toYaml .Values.controller.rbacProxy.resources | nindent 10 }}
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-      - args:
-        - --health-probe-bind-address=:8081
-        - --metrics-bind-address=127.0.0.1:8080
-        - --leader-elect
-        - --leader-election-id=newrelic-k8s-operator
-        image: newrelic/newrelic-k8s-operator:{{.Chart.AppVersion}}
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8081
-          initialDelaySeconds: 15
-          periodSeconds: 20
-        name: manager
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 8081
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        resources:
-          {{- toYaml .Values.controller.manager.resources | nindent 10 }}
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
+        - args:
+            - --secure-listen-address=0.0.0.0:8443
+            - --upstream=http://127.0.0.1:8080/
+            - --logtostderr=true
+            - --v=0
+          image: gcr.io/kubebuilder/kube-rbac-proxy:v0.13.1
+          name: kube-rbac-proxy
+          ports:
+            - containerPort: 8443
+              name: https
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.controller.rbacProxy.resources | nindent 10}}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+        - args:
+            - --health-probe-bind-address=:8081
+            - --metrics-bind-address=127.0.0.1:8080
+            - --leader-elect
+            - --leader-election-id=newrelic-k8s-operator
+          image: newrelic/newrelic-k8s-operator:{{.Chart.AppVersion}}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          name: manager
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.controller.manager.resources | nindent 10}}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
       serviceAccountName: newrelic-k8s-operator-controller-manager
       terminationGracePeriodSeconds: 10
+      {{- with include "newrelic.common.tolerations" . }}
+      tolerations:
+        {{- . | nindent 8 }}
+      {{- end }}
