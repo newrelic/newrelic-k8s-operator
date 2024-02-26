@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.7.0 - 2024-02-26
+
+### 🚀 Enhancements
+- Add configuration overrides for the operator pod's resources
+- Add the use of `common-library` Helm chart of Newrelic
+- Add override options for `tolerations` and `affinity` to the Operator `Deployment`
+
 ## v0.6.1 - 2023-12-11
 
 ### ⛓️ Dependencies

@@ -8,5 +8,5 @@ spec:
   global:
 {{ toYaml $global | indent 4 }}
 {{- end }}
-{{- $values := omit .Values "global" "newRelicLicenseKey" }}
+{{- $values := omit .Values "global" "newRelicLicenseKey" "controller" }}
 {{ toYaml $values | indent 2 }}

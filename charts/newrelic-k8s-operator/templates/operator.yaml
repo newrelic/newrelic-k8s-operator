@@ -415,21 +415,26 @@ spec:
         control-plane: controller-manager
     spec:
       affinity:
+      {{- $affinity := include "newrelic.common.affinity" . }}
+      {{- if not $affinity }}
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-                - arm64
-                - ppc64le
-                - s390x
-              - key: kubernetes.io/os
-                operator: In
-                values:
-                - linux
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+                      - arm64
+                      - ppc64le
+                      - s390x
+                  - key: kubernetes.io/os
+                    operator: In
+                    values:
+                      - linux
+      {{- else }}
+        {{- $affinity | nindent 8 }}
+      {{- end }}
       containers:
       - args:
         - --secure-listen-address=0.0.0.0:8443
@@ -443,12 +448,7 @@ spec:
           name: https
           protocol: TCP
         resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 5m
-            memory: 64Mi
+          {{- toYaml .Values.controller.rbacProxy.resources | nindent 10}}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -474,12 +474,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 10
         resources:
-          limits:
-            cpu: 500m
-            memory: 512Mi
-          requests:
-            cpu: 10m
-            memory: 256Mi
+          {{- toYaml .Values.controller.manager.resources | nindent 10}}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -490,3 +485,7 @@ spec:
         runAsUser: 1000
       serviceAccountName: newrelic-k8s-operator-controller-manager
       terminationGracePeriodSeconds: 10
+      {{- with include "newrelic.common.tolerations" . }}
+      tolerations:
+        {{- . | nindent 8 }}
+      {{- end }}
