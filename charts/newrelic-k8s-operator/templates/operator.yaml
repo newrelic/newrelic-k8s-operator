@@ -488,5 +488,7 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
       serviceAccountName: newrelic-k8s-operator-controller-manager
       terminationGracePeriodSeconds: 10
