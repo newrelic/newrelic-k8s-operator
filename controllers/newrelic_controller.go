@@ -19,6 +19,7 @@ package controllers
 import (
 	"context"
 	"runtime"
+	"sigs.k8s.io/controller-runtime/pkg/metrics/filters"
 	"time"
 
 	"github.com/operator-framework/helm-operator-plugins/pkg/annotation"
@@ -132,7 +133,7 @@ func (r *NewRelicReconciler) startHelmManager(nr newrelicv1alpha1.Monitor) error
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		Scheme:                 r.Scheme,
-		Metrics:                metricsserver.Options{BindAddress: "0"},
+		Metrics:                metricsserver.Options{BindAddress: "0", SecureServing: true, FilterProvider: filters.WithAuthenticationAndAuthorization},
 		HealthProbeBindAddress: "0",
 	})
 	if err != nil {
