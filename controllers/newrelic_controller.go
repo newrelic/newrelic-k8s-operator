@@ -19,8 +19,9 @@ package controllers
 import (
 	"context"
 	"runtime"
-	"sigs.k8s.io/controller-runtime/pkg/metrics/filters"
 	"time"
+
+	"sigs.k8s.io/controller-runtime/pkg/metrics/filters"
 
 	"github.com/operator-framework/helm-operator-plugins/pkg/annotation"
 	"github.com/operator-framework/helm-operator-plugins/pkg/reconciler"
