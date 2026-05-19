@@ -28,12 +28,17 @@ version: 0.6.0
 # It is recommended to use it with quotes.
 appVersion: "0.6.0"
 maintainers:
-  - name: aimichelle
-    url: https://github.com/aimichelle
-  - name: htroisi
-    url: https://github.com/htroisi
-  - name: vihangm
-    url: https://github.com/vihangm
+  - name: danielstokes
+    url: https://github.com/danielstokes
+  - name: dbudziwojskiNR
+    url: https://github.com/dbudziwojskiNR
+  - name: jamescripter
+    url: https://github.com/jamescripter
+  - name: Philip-R-Beckwith
+    url: https://github.com/Philip-R-Beckwith
+  - name: TmNguyen12
+    url: https://github.com/TmNguyen12
+
 keywords:
   - infrastructure
   - newrelic
