@@ -21,12 +21,15 @@ import (
 	"runtime"
 	"time"
 
+	"sigs.k8s.io/controller-runtime/pkg/metrics/filters"
+
 	"github.com/operator-framework/helm-operator-plugins/pkg/annotation"
 	"github.com/operator-framework/helm-operator-plugins/pkg/reconciler"
 	k8sruntime "k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 
 	newrelicv1alpha1 "github.com/newrelic/newrelic-k8s-operator/api/v1alpha1"
 )
@@ -131,8 +134,7 @@ func (r *NewRelicReconciler) startHelmManager(nr newrelicv1alpha1.Monitor) error
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		Scheme:                 r.Scheme,
-		MetricsBindAddress:     "0",
-		Port:                   9444,
+		Metrics:                metricsserver.Options{BindAddress: "0", SecureServing: true, FilterProvider: filters.WithAuthenticationAndAuthorization},
 		HealthProbeBindAddress: "0",
 	})
 	if err != nil {

@@ -5,6 +5,11 @@ on:
       - main
       - renovate/**
   pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   build:
     name: Build integration for
@@ -14,8 +19,8 @@ jobs:
         goos: [ linux ]
         goarch: [ amd64, arm64, arm ]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
       - name: Build integration
@@ -30,10 +35,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: helm/chart-testing-action@v2.6.1
+      - uses: helm/chart-testing-action@v2.8.0
 
       - name: Lint charts
         run: ct --config .github/ct.yaml lint --debug
@@ -45,6 +50,7 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
+
       - name: Run helm unit tests
         if: steps.list-changed.outputs.changed == 'true'
         run: |
@@ -57,31 +63,45 @@ jobs:
             fi
           done
 
+      - name: Install Helm Docs
+        # Use syntax ${version} instead of $version
+        # In certain contexts, only the less ambiguous ${version} form works
+        # Source: https://tldp.org/LDP/abs/html/parameter-substitution.html
+        run: |
+          version="v1.14.2"
+          stripped=$( echo "${version}" | sed s'/v//' )
+          wget https://github.com/norwoodj/helm-docs/releases/download/${version}/helm-docs_${stripped}_Linux_x86_64.tar.gz
+          tar --extract --verbose --file="helm-docs_${stripped}_Linux_x86_64.tar.gz" helm-docs
+          sudo mv helm-docs /usr/local/sbin
+
+      - name: Verify Helm docs are up to date
+        run: |
+          helm-docs
+          git diff --exit-code -- charts/newrelic-k8s-operator/README.md
+
   static-analysis:
     name: Run all static analysis checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
       - uses: newrelic/newrelic-infra-checkers@v1
         with:
           golangci-lint-config: golangci-lint-limited
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v9
         continue-on-error: ${{ github.event_name != 'pull_request' }}
         with:
           only-new-issues: true
-          skip-pkg-cache: true
-          skip-build-cache: true
 
   test:
     name: Run unit tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
       - name: Test

@@ -25,6 +25,8 @@ The values for the chart follow the values in the [nri-bundle chart](https://git
 
 ## Maintainers
 
-* [aimichelle](https://github.com/aimichelle)
-* [htroisi](https://github.com/htroisi)
-* [vihangm](https://github.com/vihangm)
+* [danielstokes](https://github.com/danielstokes)
+* [dbudziwojskiNR](https://github.com/dbudziwojskiNR)
+* [jamescripter](https://github.com/jamescripter)
+* [Philip-R-Beckwith](https://github.com/Philip-R-Beckwith)
+* [TmNguyen12](https://github.com/TmNguyen12)
