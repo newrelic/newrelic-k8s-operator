@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-### dependency
-  - Update dependencies to latest [#126](https://github.com/newrelic/newrelic-k8s-operator/pull/126)
+## v0.7.0 - 2026-05-21
 
-### security
-  - Improve GHA security permissions @dbudziwojski [#135](https://github.com/newrelic/newrelic-k8s-operator/pull/135)
+### dependency
+- Update dependencies to latest [#126](https://github.com/newrelic/newrelic-k8s-operator/pull/126)
+
+### 🛡️ Security notices
+- Improve GHA security permissions @dbudziwojski [#135](https://github.com/newrelic/newrelic-k8s-operator/pull/135)
+
+### ⛓️ Dependencies
+- Updated source
 
 ## v0.6.1 - 2023-12-11
 
