@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.7.1 - 2026-05-25
+
+### ⛓️ Dependencies
+- Upgraded github.com/containerd/containerd from 1.7.30 to 1.7.32 - [Changelog 🔗](https://github.com/containerd/containerd/releases/tag/v1.7.32)
+
 ## v0.7.0 - 2026-05-21
 
 ### dependency
