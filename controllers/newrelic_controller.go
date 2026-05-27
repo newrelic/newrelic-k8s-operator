@@ -29,6 +29,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/config"
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 
 	newrelicv1alpha1 "github.com/newrelic/newrelic-k8s-operator/api/v1alpha1"
@@ -55,6 +56,8 @@ type NewRelicReconciler struct {
 	helmMgr *ctrl.Manager
 	// Channel used as the signal for the helmManager to stop running.
 	helmMgrCancel context.CancelFunc
+	// Channel closed when the helmManager goroutine has fully exited.
+	helmMgrDone chan struct{}
 }
 
 //+kubebuilder:rbac:groups=newrelic.com,resources=monitors,verbs=get;list;watch;create;update;patch;delete
@@ -77,7 +80,7 @@ func (r *NewRelicReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 	// Update status after reconciliation.
 	if updateStatusErr := r.patchStatus(ctx, &nr); updateStatusErr != nil {
 		ctrlLog.Info("Failed to patch status")
-		return ctrl.Result{Requeue: true}, updateStatusErr
+		return ctrl.Result{}, updateStatusErr
 	}
 	return result, err
 }
@@ -86,16 +89,16 @@ func (r *NewRelicReconciler) reconcile(nr newrelicv1alpha1.Monitor) (newrelicv1a
 	// Check if the NRIBundle version is mismatched.
 	if nr.Status.Version != nr.Spec.Version || r.helmMgr == nil {
 		r.stopHelmManager()
-		err := r.startHelmManager(nr)
+		resolvedVersion, err := r.startHelmManager(nr)
 		if err != nil {
-			return nr, ctrl.Result{Requeue: true}, err
+			return nr, ctrl.Result{}, err
 		}
 
-		nr.Status.Version = nr.Spec.Version
+		nr.Status.Version = resolvedVersion
 	}
 
 	// If status and spec versions match, nothing to do.
-	return nr, ctrl.Result{Requeue: false}, nil
+	return nr, ctrl.Result{}, nil
 }
 
 func (r *NewRelicReconciler) patchStatus(ctx context.Context, nr *newrelicv1alpha1.Monitor) error {
@@ -116,30 +119,32 @@ func (r *NewRelicReconciler) reconcileDelete() (ctrl.Result, error) {
 	return ctrl.Result{}, nil
 }
 
-func (r *NewRelicReconciler) startHelmManager(nr newrelicv1alpha1.Monitor) error {
+func (r *NewRelicReconciler) startHelmManager(nr newrelicv1alpha1.Monitor) (string, error) {
 	// Load HelmChart for version.
 	chart, err := LoadChart(newRelicRepo, newRelicChart, nr.Spec.Version)
 	if err != nil {
 		ctrlLog.Error(err, "Unable to load chart")
-		return err
+		return "", err
 	}
 	if nr.Spec.Version == "" {
 		nr.Spec.Version = chart.Metadata.Version
 		err = r.Client.Update(context.Background(), &nr)
 		if err != nil {
 			ctrlLog.Error(err, "Failed to update version in spec")
-			return err
+			return "", err
 		}
 	}
 
+	skipNameValidation := true
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		Scheme:                 r.Scheme,
 		Metrics:                metricsserver.Options{BindAddress: "0", SecureServing: true, FilterProvider: filters.WithAuthenticationAndAuthorization},
 		HealthProbeBindAddress: "0",
+		Controller:             config.Controller{SkipNameValidation: &skipNameValidation},
 	})
 	if err != nil {
 		ctrlLog.Error(err, "unable to start manager")
-		return err
+		return "", err
 	}
 
 	gvk := schema.GroupVersionKind{
@@ -160,24 +165,26 @@ func (r *NewRelicReconciler) startHelmManager(nr newrelicv1alpha1.Monitor) error
 	)
 	if err != nil {
 		ctrlLog.Error(err, "unable to create helm reconciler", "controller", "Helm")
-		return err
+		return "", err
 	}
 	if err := helmReconciler.SetupWithManager(mgr); err != nil {
 		ctrlLog.Error(err, "unable to create controller", "controller", "Helm")
-		return err
+		return "", err
 	}
 
 	r.helmMgr = &mgr
 	cancelCtx, cancel := context.WithCancel(context.Background())
 	r.helmMgrCancel = cancel
+	r.helmMgrDone = make(chan struct{})
 	go func() {
+		defer close(r.helmMgrDone)
 		ctrlLog.Info("starting helm manager")
 		if err := mgr.Start(cancelCtx); err != nil {
 			ctrlLog.Error(err, "problem running helm manager")
 		}
 	}()
 
-	return nil
+	return nr.Spec.Version, nil
 }
 
 func (r *NewRelicReconciler) stopHelmManager() {
@@ -187,6 +194,12 @@ func (r *NewRelicReconciler) stopHelmManager() {
 
 	ctrlLog.Info("Stopping HelmManager")
 	r.helmMgrCancel()
+	// Wait for the manager goroutine to exit before returning.
+	// This ensures the old manager has fully stopped before a new one is started.
+	if r.helmMgrDone != nil {
+		<-r.helmMgrDone
+		r.helmMgrDone = nil
+	}
 	r.helmMgr = nil
 }
 
