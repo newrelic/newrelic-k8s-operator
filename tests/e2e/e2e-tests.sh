@@ -26,8 +26,8 @@ FAIL=0
 
 # --- Helpers ---
 
-function pass() { echo "  PASS: $1"; PASS=$((PASS + 1)); }
-function fail() { echo "  FAIL: $1" >&2; FAIL=$((FAIL + 1)); }
+function pass() { echo "  ✅ $1"; PASS=$((PASS + 1)); }
+function fail() { echo "  ❌ $1" >&2; FAIL=$((FAIL + 1)); }
 
 # poll_until <description> <timeout_secs> <shell_expression>
 # Evaluates <shell_expression> every 5 seconds until it exits 0 or the timeout
@@ -38,14 +38,14 @@ function poll_until() {
     local cmd="$3"
     local deadline=$(( $(date +%s) + timeout_secs ))
 
-    echo "  Polling: ${description} (timeout: ${timeout_secs}s)"
+    echo "  ⏳ Polling: ${description} (timeout: ${timeout_secs}s)"
     while [[ $(date +%s) -lt $deadline ]]; do
         if eval "$cmd" > /dev/null 2>&1; then
             return 0
         fi
         sleep 5
     done
-    echo "  Timed out after ${timeout_secs}s: ${description}" >&2
+    echo "  ⏰ Timed out after ${timeout_secs}s: ${description}" >&2
     return 1
 }
 
@@ -57,7 +57,7 @@ function check_dependencies() {
         fi
     done
     if [[ ${#missing[@]} -gt 0 ]]; then
-        echo "Missing required tools: ${missing[*]}" >&2
+        echo "❌ Missing required tools: ${missing[*]}" >&2
         exit 1
     fi
 }
@@ -82,7 +82,7 @@ function parse_args() {
                 RUN_TESTS="true"
                 ;;
             -*|--*|*)
-                echo "Unknown argument: $1" >&2
+                echo "❌ Unknown argument: $1" >&2
                 help
                 exit 1
                 ;;
@@ -96,7 +96,7 @@ function parse_args() {
     fi
 
     if [[ -z "$K8S_VERSION" || -z "$LICENSE_KEY" ]]; then
-        echo "Error: --k8s_version and --license_key are required." >&2
+        echo "❌ Error: --k8s_version and --license_key are required." >&2
         help
         exit 1
     fi
@@ -121,30 +121,30 @@ END
 function create_cluster() {
     check_dependencies
 
-    echo "=== Setup ==="
+    echo "🚀 === Setup ==="
     minikube delete --all > /dev/null 2>&1 || true
     CLUSTER_NAME="$(date "+%Y-%m-%d-%H-%M-%S")-e2e-tests"
 
-    echo "Creating cluster: ${CLUSTER_NAME} (k8s ${K8S_VERSION})"
+    echo "🏗️  Creating cluster: ${CLUSTER_NAME} (k8s ${K8S_VERSION})"
     minikube start \
         --container-runtime=containerd \
         --kubernetes-version="${K8S_VERSION}" \
         --profile "${CLUSTER_NAME}"
 
-    echo "Building operator image: ${OPERATOR_IMAGE}"
+    echo "🔨 Building operator image: ${OPERATOR_IMAGE}"
     DOCKER_BUILDKIT=1 docker build \
         --tag "${OPERATOR_IMAGE}" \
         "${REPO_ROOT}" \
         --quiet
 
-    echo "Loading image into cluster"
+    echo "📦 Loading image into cluster"
     minikube image load "${OPERATOR_IMAGE}" --profile "${CLUSTER_NAME}"
 
-    echo "Adding Helm repositories"
+    echo "📡 Adding Helm repositories"
     helm repo add newrelic https://helm-charts.newrelic.com > /dev/null
     helm repo update > /dev/null
 
-    echo "Installing operator via Helm"
+    echo "⚙️ Installing operator via Helm"
     # NOTE: --wait is intentionally omitted here. The chart's operator.yaml template
     # hardcodes the image as newrelic/newrelic-k8s-operator:{{.Chart.AppVersion}}.
     # We override the image to our locally built e2e image immediately after install.
@@ -155,7 +155,7 @@ function create_cluster() {
         --set "global.licenseKey=${LICENSE_KEY}" \
         --set "global.cluster=e2e-tests"
 
-    echo "Overriding operator image to local e2e build"
+    echo "🔧 Overriding operator image to local e2e build"
     kubectl set image "deployment/${OPERATOR_DEPLOY}" \
         manager="${OPERATOR_IMAGE}" \
         -n "${OPERATOR_NS}"
@@ -164,14 +164,14 @@ function create_cluster() {
         --type=strategic \
         -p '{"spec":{"template":{"spec":{"containers":[{"name":"manager","imagePullPolicy":"Never"}]}}}}'
 
-    echo "Setup complete"
+    echo "✅ Setup complete"
 }
 
 # --- Tests ---
 
 function run_tests() {
     echo ""
-    echo "=== Running E2E Tests ==="
+    echo "🧪 === Running E2E Tests ==="
 
     test_operator_ready
     test_monitor_version_resolved
@@ -180,7 +180,7 @@ function run_tests() {
     test_monitor_status_matches_helm_version
 
     echo ""
-    echo "=== Results: ${PASS} passed, ${FAIL} failed ==="
+    echo "📊 === Results: ${PASS} passed, ${FAIL} failed ==="
     [[ $FAIL -eq 0 ]]
 }
 
@@ -188,7 +188,7 @@ function run_tests() {
 # This validates that the operator started, connected to the API server, and is healthy.
 function test_operator_ready() {
     echo ""
-    echo "Test: Operator deployment is available"
+    echo "🔍 Test: Operator deployment is available"
 
     if kubectl rollout status "deployment/${OPERATOR_DEPLOY}" \
             -n "${OPERATOR_NS}" \
@@ -218,7 +218,7 @@ function test_operator_ready() {
 # reconciliation loop ran successfully and reached the Helm chart repository.
 function test_monitor_version_resolved() {
     echo ""
-    echo "Test: Monitor status.version is auto-resolved (reconciliation loop ran)"
+    echo "🔍 Test: Monitor status.version is auto-resolved (reconciliation loop ran)"
 
     if poll_until "Monitor status.version to be non-empty" "$RECONCILE_TIMEOUT" \
             'kubectl get monitor newrelic -o jsonpath="{.status.version}" 2>/dev/null | grep -q .'; then
@@ -241,7 +241,7 @@ function test_monitor_version_resolved() {
 # in a basic e2e run.
 function test_nribundle_helm_release_deployed() {
     echo ""
-    echo "Test: nri-bundle Helm release is created by the operator"
+    echo "🔍 Test: nri-bundle Helm release is created by the operator"
 
     # helm list -o json returns [] when no releases match; jq -e 'length > 0' exits 0
     # only when there is at least one release, regardless of its status.
@@ -268,7 +268,7 @@ function test_nribundle_helm_release_deployed() {
 #   nri-bundle >=6.x: <release>-nrk8s-kubelet  (e.g. nribundle-nrk8s-kubelet)
 function test_nri_infrastructure_deployed() {
     echo ""
-    echo "Test: nri-bundle deployed a kubelet DaemonSet"
+    echo "🔍 Test: nri-bundle deployed a kubelet DaemonSet"
 
     if poll_until "nri-bundle kubelet DaemonSet to be created" "$WORKLOAD_TIMEOUT" \
             "kubectl get daemonsets -n ${OPERATOR_NS} --no-headers 2>/dev/null | grep -qE 'nrk8s-kubelet|newrelic-infrastructure'"; then
@@ -287,7 +287,7 @@ function test_nri_infrastructure_deployed() {
 # Cross-checking this against the actual Helm release confirms status is kept in sync.
 function test_monitor_status_matches_helm_version() {
     echo ""
-    echo "Test: Monitor status.version matches deployed Helm chart version"
+    echo "🔍 Test: Monitor status.version matches deployed Helm chart version"
 
     local monitor_version helm_json helm_chart helm_version
     monitor_version=$(kubectl get monitor newrelic -o jsonpath='{.status.version}' 2>/dev/null || echo "")
@@ -317,10 +317,10 @@ function test_monitor_status_matches_helm_version() {
 
 function teardown() {
     echo ""
-    echo "=== Teardown ==="
+    echo "🧹 === Teardown ==="
     if [[ -n "$CLUSTER_NAME" ]]; then
         minikube delete --profile "${CLUSTER_NAME}" > /dev/null 2>&1 || true
-        echo "Cluster ${CLUSTER_NAME} deleted"
+        echo "🗑️Cluster ${CLUSTER_NAME} deleted"
     fi
 }
 
