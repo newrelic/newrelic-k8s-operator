@@ -21,7 +21,7 @@ jobs:
   e2e-tests:
     name: Run E2E Tests
     # Do not run e2e tests if PR has skip-e2e label or if it's from a forked repo (external contribution)
-    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci/skip-e2e') && github.event.pull_request.head.repo.full_name == 'newrelic/k8s-agents-operator' }}
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ci/skip-e2e') && github.event.pull_request.head.repo.full_name == 'newrelic/newrelic-k8s-operator' }}
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 6 # len(k8sVersion)/2 is a good number to have here
