@@ -36,6 +36,7 @@ linters:
           allow:
             - sigs.k8s.io/controller-runtime/pkg/metrics/server
             - sigs.k8s.io/controller-runtime/pkg/metrics/filters
+            - sigs.k8s.io/controller-runtime/pkg/config
     dupl:
       threshold: 100
     gocyclo:
