@@ -7,8 +7,8 @@ require (
 	github.com/onsi/gomega v1.41.0
 	github.com/operator-framework/helm-operator-plugins v0.8.0
 	helm.sh/helm/v3 v3.21.0
-	k8s.io/apimachinery v0.35.3
-	k8s.io/client-go v0.35.3
+	k8s.io/apimachinery v0.36.1
+	k8s.io/client-go v0.36.1
 	sigs.k8s.io/controller-runtime v0.23.3
 )
 
