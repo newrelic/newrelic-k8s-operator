@@ -7,11 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-### dependency
-  - Update dependencies to latest [#126](https://github.com/newrelic/newrelic-k8s-operator/pull/126)
+### bugfix
+  - Fix issues with reconciliation loop + metrics namespace overlap @dbudziwojski [#139](https://github.com/newrelic/newrelic-k8s-operator/pull/139)
 
-### security
-  - Improve GHA security permissions @dbudziwojski [#135](https://github.com/newrelic/newrelic-k8s-operator/pull/135)
+## v0.7.1 - 2026-05-25
+
+### ⛓️ Dependencies
+- Upgraded github.com/containerd/containerd from 1.7.30 to 1.7.32 - [Changelog 🔗](https://github.com/containerd/containerd/releases/tag/v1.7.32)
+
+## v0.7.0 - 2026-05-21
+
+### dependency
+- Update dependencies to latest [#126](https://github.com/newrelic/newrelic-k8s-operator/pull/126)
+
+### 🛡️ Security notices
+- Improve GHA security permissions @dbudziwojski [#135](https://github.com/newrelic/newrelic-k8s-operator/pull/135)
+
+### ⛓️ Dependencies
+- Updated source
 
 ## v0.6.1 - 2023-12-11
 

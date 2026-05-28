@@ -66,12 +66,14 @@ kubectl: Correctly Configured: pointing to minikube-vm at 192.168.x.x
 ```
 
 ```shell
-docker build -t <registry>/newrelic-operator:0.0.1 .
-docker push <registry>/newrelic-operator:0.0.1
-make deploy <registry>/newrelic-operator:0.0.1
+make docker-build IMG=<registry>/newrelic-operator:$(git rev-parse --short HEAD)
+minikube image load <registry>/newrelic-operator:$(git rev-parse --short HEAD)
+make deploy IMG=<registry>/newrelic-operator:$(git rev-parse --short HEAD)
 ```
 
-This will deploy the necessary service accounts, RBAC policies, and deployment necessary for the operator to run. The operator will be running in the `newrelic-operator-system` namespace.
+> **Note:** `minikube image load` is required when using containerd as the minikube container runtime (instead of `docker push` to a registry). The short commit SHA in the tag ensures minikube uses the locally built image rather than pulling from a remote registry.
+
+This will deploy the necessary service accounts, RBAC policies, and deployment necessary for the operator to run. The operator will be running in the `newrelic-k8s-operator-system` namespace.
 You can then deploy the sample CRDs. Before doing so, make sure to update the licenseKey with your own in `config/samples/minimal_nribundle.yaml`:
 
 ```shell
