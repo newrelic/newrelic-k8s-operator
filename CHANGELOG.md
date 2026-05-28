@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### enhancement
+- Enable automatically weekly releases @dbudziwojski [#139](https://github.com/newrelic/newrelic-k8s-operator/pull/140)
+- Add E2E tests @dbudziwojski [#139](https://github.com/newrelic/newrelic-k8s-operator/pull/140)
+
 ### bugfix
-  - Fix issues with reconciliation loop + metrics namespace overlap @dbudziwojski [#139](https://github.com/newrelic/newrelic-k8s-operator/pull/139)
+- Fix issues with reconciliation loop + metrics namespace overlap. @dbudziwojski [#139](https://github.com/newrelic/newrelic-k8s-operator/pull/139)
 
 ## v0.7.1 - 2026-05-25
 

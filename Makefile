@@ -12,6 +12,8 @@ VERSION ?= 0.0.1
 # newrelic.com/newrelic-k8s-operator-bundle:$VERSION and newrelic/newrelic-k8s-operator-catalog:$VERSION.
 IMAGE_TAG_BASE ?= newrelic/newrelic-k8s-operator
 
+E2E_LICENSE_KEY ?= fake-abc123
+
 # Image URL to use all building/pushing image targets
 IMG ?= newrelic/newrelic-k8s-operator
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
@@ -71,6 +73,12 @@ vet: ## Run go vet against code.
 .PHONY: test
 test: manifests generate fmt vet envtest ## Run tests.
 	KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) -p path)" go test ./... -coverprofile cover.out
+
+.PHONY: test-e2e
+.PHONY: test-e2e
+test-e2e: ## Run e2e tests. Requires --k8s_version and --license_key. Example: make test-e2e E2E_K8S_VERSION=v1.28.0 E2E_LICENSE_KEY=<key>
+	chmod +x tests/e2e/e2e-tests.sh
+	tests/e2e/e2e-tests.sh --k8s_version $(E2E_K8S_VERSION) --license_key $(E2E_LICENSE_KEY) --run_tests
 
 
 ##@ Build
