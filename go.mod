@@ -9,7 +9,7 @@ require (
 	helm.sh/helm/v3 v3.21.0
 	k8s.io/apimachinery v0.35.3
 	k8s.io/client-go v0.35.3
-	sigs.k8s.io/controller-runtime v0.23.3
+	sigs.k8s.io/controller-runtime v0.24.1
 )
 
 require (
