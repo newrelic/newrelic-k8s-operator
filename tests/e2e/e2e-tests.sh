@@ -15,7 +15,7 @@ SCRIPT_PATH=$(dirname "$0")
 REPO_ROOT=$(realpath "$SCRIPT_PATH/../..")
 
 # Timeouts (seconds). These are generous to tolerate slow Helm chart downloads.
-OPERATOR_READY_TIMEOUT=180   # operator pod reaches Ready
+OPERATOR_READY_TIMEOUT=300   # operator pod reaches Ready
 RECONCILE_TIMEOUT=180        # operator downloads nri-bundle chart + reconciles Monitor
 HELM_DEPLOY_TIMEOUT=300      # nri-bundle Helm release reaches deployed status
 WORKLOAD_TIMEOUT=300         # nri-bundle workloads (DaemonSets etc.) are created
