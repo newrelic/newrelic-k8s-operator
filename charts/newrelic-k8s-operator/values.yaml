@@ -1,5 +1,19 @@
 version: ""
 newRelicLicenseKey: ""
+
+# -- Images used by the chart.
+images:
+  # -- The secrets needed to pull images from a custom registry.
+  pullSecrets: []
+  # - name: regsecret
+  # -- Image for the operator.
+  operator:
+    registry: ""
+    repository: newrelic/newrelic-k8s-operator
+    # -- Defaults to the chart's appVersion when empty.
+    tag: ""
+    pullPolicy: IfNotPresent
+
 newrelic-infrastructure:
   # newrelic-infrastructure.enabled -- Install the [`newrelic-infrastructure` chart](https://github.com/newrelic/nri-kubernetes/tree/main/charts/newrelic-infrastructure)
   enabled: true
