@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## Unreleased
+
+### enhancement
+- Add images configuration options @dbudziwojski [#143](https://github.com/newrelic/newrelic-k8s-operator/pull/143)
+
 ## v0.8.0 - 2026-06-01
 
 ### 🚀 Enhancements

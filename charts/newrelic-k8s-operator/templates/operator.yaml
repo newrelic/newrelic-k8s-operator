@@ -524,4 +524,7 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: newrelic-k8s-operator-controller-manager
+      {{- if .Values.images.pullSecrets }}
+      imagePullSecrets: {{ toYaml .Values.images.pullSecrets | nindent 6 }}
+      {{- end }}
       terminationGracePeriodSeconds: 10
