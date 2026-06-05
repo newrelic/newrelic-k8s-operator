@@ -491,7 +491,8 @@ spec:
       - args:
         - --leader-elect
         - --leader-election-id=newrelic-k8s-operator
-        image: newrelic/newrelic-k8s-operator:{{.Chart.AppVersion}}
+        image: {{ include "newrelic-k8s-operator.images.operator.image" . }}
+        imagePullPolicy: {{ .Values.images.operator.pullPolicy }}
         livenessProbe:
           httpGet:
             path: /healthz
