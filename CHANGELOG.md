@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.8.1 - 2026-06-08
+
+### ⛓️ Dependencies
+- Updated kubernetes monorepo to v0.36.1
+
 ## v0.8.0 - 2026-06-01
 
 ### 🚀 Enhancements
