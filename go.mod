@@ -6,7 +6,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.29.0
 	github.com/onsi/gomega v1.41.0
 	github.com/operator-framework/helm-operator-plugins v0.9.1
-	helm.sh/helm/v3 v3.21.0
+	helm.sh/helm/v4 v4.2.0
 	k8s.io/apimachinery v0.36.1
 	k8s.io/client-go v0.36.1
 	sigs.k8s.io/controller-runtime v0.24.1
