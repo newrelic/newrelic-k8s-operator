@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.8.2 - 2026-06-15
+
+### ⛓️ Dependencies
+- Updated source
+- Updated alpine to v3.24
+- Updated github.com/onsi/ginkgo/v2 to v2.31.0 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.31.0)
+- Updated helm.sh/helm/v3 to v3.21.1
+- Updated github.com/onsi/gomega to v1.42.0 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.42.0)
+
 ## v0.8.1 - 2026-06-08
 
 ### ⛓️ Dependencies
