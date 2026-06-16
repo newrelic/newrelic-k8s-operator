@@ -145,24 +145,16 @@ function create_cluster() {
     helm repo update > /dev/null
 
     echo "⚙️ Installing operator via Helm"
-    # NOTE: --wait is intentionally omitted here. The chart's operator.yaml template
-    # hardcodes the image as newrelic/newrelic-k8s-operator:{{.Chart.AppVersion}}.
-    # We override the image to our locally built e2e image immediately after install.
-    # TODO: Add image.repository / image.tag values to the chart to avoid this patch.
     helm upgrade --install newrelic-k8s-operator "${REPO_ROOT}/charts/newrelic-k8s-operator" \
         --namespace "${OPERATOR_NS}" \
         --create-namespace \
         --set "global.licenseKey=${LICENSE_KEY}" \
-        --set "global.cluster=e2e-tests"
-
-    echo "🔧 Overriding operator image to local e2e build"
-    kubectl set image "deployment/${OPERATOR_DEPLOY}" \
-        manager="${OPERATOR_IMAGE}" \
-        -n "${OPERATOR_NS}"
-    kubectl patch "deployment/${OPERATOR_DEPLOY}" \
-        -n "${OPERATOR_NS}" \
-        --type=strategic \
-        -p '{"spec":{"template":{"spec":{"containers":[{"name":"manager","imagePullPolicy":"Never"}]}}}}'
+        --set "global.cluster=e2e-tests" \
+        --set "images.operator.repository=e2e/newrelic-k8s-operator" \
+        --set "images.operator.tag=e2e" \
+        --set "images.operator.pullPolicy=Never" \
+        --wait \
+        --timeout "${OPERATOR_READY_TIMEOUT}s"
 
     echo "✅ Setup complete"
 }

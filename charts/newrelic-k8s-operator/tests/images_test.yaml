@@ -1,0 +1,96 @@
+suite: images
+templates:
+  - templates/operator.yaml
+release:
+  name: my-release
+  namespace: my-namespace
+tests:
+  - it: has a default image tag (appVersion)
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - matchRegex:
+          path: spec.template.spec.containers[0].image
+          pattern: ^newrelic\/newrelic-k8s-operator:\d+\.\d+\.\d+$
+
+  - it: has a default pull policy
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].imagePullPolicy
+          value: IfNotPresent
+
+  - it: overrides repository and tag
+    set:
+      images.operator.repository: myrepo/my-operator
+      images.operator.tag: "1.2.3"
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: myrepo/my-operator:1.2.3
+
+  - it: overrides pull policy
+    set:
+      images.operator.pullPolicy: Always
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].imagePullPolicy
+          value: Always
+
+  - it: uses local registry
+    set:
+      images.operator.registry: ecr.aws.io
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - matchRegex:
+          path: spec.template.spec.containers[0].image
+          pattern: ^ecr\.aws\.io\/newrelic\/newrelic-k8s-operator:\d+\.\d+\.\d+$
+
+  - it: uses global registry
+    set:
+      global.images.registry: global.registry.io
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - matchRegex:
+          path: spec.template.spec.containers[0].image
+          pattern: ^global\.registry\.io\/newrelic\/newrelic-k8s-operator:\d+\.\d+\.\d+$
+
+  - it: local registry overrides global registry
+    set:
+      global.images.registry: global.registry.io
+      images.operator.registry: local.registry.io
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - matchRegex:
+          path: spec.template.spec.containers[0].image
+          pattern: ^local\.registry\.io\/newrelic\/newrelic-k8s-operator:\d+\.\d+\.\d+$
+
+  - it: supports imagePullSecrets
+    set:
+      images.pullSecrets:
+        - name: my-ecr-secret
+        - name: another-secret
+    documentSelector:
+      path: kind
+      value: Deployment
+    asserts:
+      - equal:
+          path: spec.template.spec.imagePullSecrets
+          value:
+            - name: my-ecr-secret
+            - name: another-secret
