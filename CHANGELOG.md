@@ -7,10 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-## Unreleased
-
 ### enhancement
 - BREAKING Change: Added image configuration options. You may need to update your values file. @dbudziwojski [#143](https://github.com/newrelic/newrelic-k8s-operator/pull/143)
+
+## v0.8.2 - 2026-06-15
+
+### ⛓️ Dependencies
+- Updated source
+- Updated alpine to v3.24
+- Updated github.com/onsi/ginkgo/v2 to v2.31.0 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.31.0)
+- Updated helm.sh/helm/v3 to v3.21.1
+- Updated github.com/onsi/gomega to v1.42.0 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.42.0)
+
+## v0.8.1 - 2026-06-08
+
+### ⛓️ Dependencies
+- Updated kubernetes monorepo to v0.36.1
 
 ## v0.8.0 - 2026-06-01
 
