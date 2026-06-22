@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-### enhancement
+## v0.9.0 - 2026-06-22
+
+### 🚀 Enhancements
 - BREAKING Change: Added image configuration options. You may need to update your values file. @dbudziwojski [#143](https://github.com/newrelic/newrelic-k8s-operator/pull/143)
+
+### ⛓️ Dependencies
+- Updated kubernetes monorepo to v0.36.2
+- Updated helm.sh/helm/v3 to v3.21.2
 
 ## v0.8.2 - 2026-06-15
 
