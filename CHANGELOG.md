@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.1 - 2026-06-29
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/ginkgo/v2 to v2.32.0 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.32.0)
+- Updated github.com/onsi/gomega to v1.42.1 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.42.1)
+- Upgraded github.com/containerd/containerd from 1.7.32 to 1.7.33 - [Changelog 🔗](https://github.com/containerd/containerd/releases/tag/v1.7.33)
+
 ## v0.9.0 - 2026-06-22
 
 ### 🚀 Enhancements
