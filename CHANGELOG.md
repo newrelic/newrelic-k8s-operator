@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.2 - 2026-07-13
+
+### ⛓️ Dependencies
+- Updated helm.sh/helm/v3 to v3.21.3
+
 ## v0.9.1 - 2026-06-29
 
 ### ⛓️ Dependencies
