@@ -2,6 +2,35 @@ apiVersion: v1
 entries:
   newrelic-k8s-operator:
   - apiVersion: v2
+    appVersion: 0.9.2
+    created: "2026-07-13T13:03:41.003093416Z"
+    description: A Helm chart for New Relic's Kubernetes operator.
+    digest: ef4804206800e939f45d6e98fbc0d2ed6cc19a223eca25c0b5bd936132a5fbf4
+    home: https://github.com/newrelic/newrelic-k8s-operator
+    icon: https://newrelic.com/assets/newrelic/source/NewRelic-logo-square.svg
+    keywords:
+    - infrastructure
+    - newrelic
+    - monitoring
+    maintainers:
+    - name: danielstokes
+      url: https://github.com/danielstokes
+    - name: dbudziwojskiNR
+      url: https://github.com/dbudziwojskiNR
+    - name: jamescripter
+      url: https://github.com/jamescripter
+    - name: Philip-R-Beckwith
+      url: https://github.com/Philip-R-Beckwith
+    - name: TmNguyen12
+      url: https://github.com/TmNguyen12
+    name: newrelic-k8s-operator
+    sources:
+    - https://github.com/newrelic/newrelic-k8s-operator/
+    type: application
+    urls:
+    - https://github.com/newrelic/newrelic-k8s-operator/releases/download/newrelic-k8s-operator-0.9.2/newrelic-k8s-operator-0.9.2.tgz
+    version: 0.9.2
+  - apiVersion: v2
     appVersion: 0.9.1
     created: "2026-06-29T13:48:22.512021172Z"
     description: A Helm chart for New Relic's Kubernetes operator.
@@ -400,4 +429,4 @@ entries:
     urls:
     - https://github.com/newrelic/newrelic-k8s-operator/releases/download/newrelic-k8s-operator-0.1.1/newrelic-k8s-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2026-06-29T13:48:22.512157929Z"
+generated: "2026-07-13T13:03:41.003221646Z"
