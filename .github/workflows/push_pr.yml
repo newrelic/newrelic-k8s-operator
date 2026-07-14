@@ -19,7 +19,7 @@ jobs:
         goos: [ linux ]
         goarch: [ amd64, arm64, arm ]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: helm/chart-testing-action@v2.8.0
@@ -54,7 +54,7 @@ jobs:
       - name: Run helm unit tests
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-          helm plugin install https://github.com/helm-unittest/helm-unittest --version=0.3.1
+          helm plugin install https://github.com/helm-unittest/helm-unittest --version=1.1.0
           for chart in $(ct --config .github/ct.yaml list-changed); do
             if [ -d "$chart/tests/" ]; then
               helm unittest $chart
@@ -83,7 +83,7 @@ jobs:
     name: Run all static analysis checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
@@ -100,7 +100,7 @@ jobs:
     name: Run unit tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'

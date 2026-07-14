@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.2 - 2026-07-13
+
+### ⛓️ Dependencies
+- Updated helm.sh/helm/v3 to v3.21.3
+
+## v0.9.1 - 2026-06-29
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/ginkgo/v2 to v2.32.0 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.32.0)
+- Updated github.com/onsi/gomega to v1.42.1 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.42.1)
+- Upgraded github.com/containerd/containerd from 1.7.32 to 1.7.33 - [Changelog 🔗](https://github.com/containerd/containerd/releases/tag/v1.7.33)
+
+## v0.9.0 - 2026-06-22
+
+### 🚀 Enhancements
+- BREAKING Change: Added image configuration options. You may need to update your values file. @dbudziwojski [#143](https://github.com/newrelic/newrelic-k8s-operator/pull/143)
+
+### ⛓️ Dependencies
+- Updated kubernetes monorepo to v0.36.2
+- Updated helm.sh/helm/v3 to v3.21.2
+
+## v0.8.2 - 2026-06-15
+
+### ⛓️ Dependencies
+- Updated source
+- Updated alpine to v3.24
+- Updated github.com/onsi/ginkgo/v2 to v2.31.0 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.31.0)
+- Updated helm.sh/helm/v3 to v3.21.1
+- Updated github.com/onsi/gomega to v1.42.0 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.42.0)
+
 ## v0.8.1 - 2026-06-08
 
 ### ⛓️ Dependencies
