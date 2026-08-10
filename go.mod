@@ -3,7 +3,7 @@ module github.com/newrelic/newrelic-k8s-operator
 go 1.26.5
 
 require (
-	github.com/onsi/ginkgo/v2 v2.32.0
+	github.com/onsi/ginkgo/v2 v2.32.1
 	github.com/onsi/gomega v1.42.1
 	github.com/operator-framework/helm-operator-plugins v0.9.1
 	helm.sh/helm/v3 v3.21.3
