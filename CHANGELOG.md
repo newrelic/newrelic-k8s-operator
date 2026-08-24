@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.5 - 2026-08-24
+
+### ⛓️ Dependencies
+- Updated helm.sh/helm/v3 to v3.21.4
+- Updated kubernetes monorepo to v0.36.4
+
 ## v0.9.4 - 2026-08-17
 
 ### ⛓️ Dependencies
