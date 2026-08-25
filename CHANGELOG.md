@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### dependency
+- Updated go to v1.26.6 @dbudziwojski [#165](https://github.com/newrelic/newrelic-k8s-operator/pull/165)
+
 ## v0.9.5 - 2026-08-24
 
 ### ⛓️ Dependencies
