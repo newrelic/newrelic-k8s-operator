@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.6 - 2026-08-31
+
 ### dependency
 - Updated go to v1.26.6 @dbudziwojski [#165](https://github.com/newrelic/newrelic-k8s-operator/pull/165)
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/gomega to v1.43.0 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.43.0)
 
 ## v0.9.5 - 2026-08-24
 
