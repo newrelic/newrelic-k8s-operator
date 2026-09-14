@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.8 - 2026-09-14
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/ginkgo/v2 to v2.32.2 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.32.2)
+- Updated helm.sh/helm/v3 to v3.22.0
+
 ## v0.9.7 - 2026-09-07
 
 ### ⛓️ Dependencies
