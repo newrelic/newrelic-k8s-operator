@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.10 - 2026-09-28
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/gomega to v1.44.0 - [Changelog 🔗](https://github.com/onsi/gomega/releases/tag/v1.44.0)
+
 ## v0.9.9 - 2026-09-21
 
 ### ⛓️ Dependencies
