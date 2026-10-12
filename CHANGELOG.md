@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.11 - 2026-10-12
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/ginkgo/v2 to v2.33.1 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.33.1)
+
 ## v0.9.10 - 2026-09-28
 
 ### ⛓️ Dependencies
