@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.12 - 2026-10-19
+
+### ⛓️ Dependencies
+- Updated go.opentelemetry.io/otel/exporters/otlp/otlptrace to v1.45.0
+- Updated go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc to v1.45.0
+- Updated google.golang.org/grpc to v1.83.2
+- Updated helm.sh/helm/v3 to v3.22.1
+
 ## v0.9.11 - 2026-10-12
 
 ### ⛓️ Dependencies
