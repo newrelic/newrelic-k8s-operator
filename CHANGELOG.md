@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.9.13 - 2026-10-26
+
+### ⛓️ Dependencies
+- Updated source
+- Updated sigs.k8s.io/controller-runtime to v0.25.2
+
 ## v0.9.12 - 2026-10-19
 
 ### ⛓️ Dependencies
