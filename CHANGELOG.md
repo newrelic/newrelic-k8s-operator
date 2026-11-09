@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-### security
+## v0.10.0 - 2026-11-09
+
+### 🛡️ Security notices
 - Update golang.org/x/net to v0.62.0
 - Update golang.org/x/crypto to v0.58.1-0.20261009181718-2f1f834330b2 (GO-2026-5932)
+
+### ⛓️ Dependencies
+- Updated github.com/onsi/ginkgo/v2 to v2.34.0 - [Changelog 🔗](https://github.com/onsi/ginkgo/releases/tag/v2.34.0)
 
 ## v0.9.13 - 2026-10-26
 
