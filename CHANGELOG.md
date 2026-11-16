@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## v0.10.1 - 2026-11-16
+
+### ⛓️ Dependencies
+- Updated go.opentelemetry.io/otel/sdk to v1.47.0
+
 ## v0.10.0 - 2026-11-09
 
 ### 🛡️ Security notices
